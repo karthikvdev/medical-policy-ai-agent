@@ -1,0 +1,15 @@
+# Runtime
+python-dotenv>=1.0.0
+pillow>=10.0.0
+pymupdf>=1.24.0
+fastapi>=0.110.0
+uvicorn[standard]>=0.23.0
+pydantic>=2.5.0
+
+# elsAI Core (model)
+--extra-index-url https://elsai-core-package.optisolbusiness.com/root/elsai-model/
+elsai-model==1.2.1
+
+# elsAI Text Extractors
+--extra-index-url https://elsai-core-package.optisolbusiness.com/root/elsai-text-extractors/
+elsai-text-extractors==0.1.0
