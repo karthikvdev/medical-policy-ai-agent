@@ -30,37 +30,12 @@ This installs:
 ## Run with Docker (frontend + backend)
 
 ```bash
-cd /home/pc/projects/ai-agents/hospital-bill
-export OPENAI_API_KEY=your_openai_api_key
 docker compose up --build
 ```
 
 - Frontend: http://localhost:5173
 - Backend API: http://localhost:8080
 - Hot reload is enabled for both services via bind mounts and `--reload` / Vite HMR.
-
-## Run backend locally (without Docker)
-
-```bash
-cd /home/pc/projects/ai-agents/hospital-bill
-source .venv/bin/activate
-uvicorn backend.api:app --reload --host 0.0.0.0 --port 8080
-```
-
-API docs:
-- Swagger UI: http://localhost:8080/docs
-- ReDoc: http://localhost:8080/redoc
-- OpenAPI JSON: http://localhost:8080/openapi.json
-
-## Run frontend locally (without Docker)
-
-```bash
-cd /home/pc/projects/ai-agents/hospital-bill/frontend
-npm install
-VITE_API_URL=http://localhost:8080 npm run dev -- --host 0.0.0.0 --port 5173
-```
-
-Open http://localhost:5173
 
 ## Key API Endpoints (backend)
 
