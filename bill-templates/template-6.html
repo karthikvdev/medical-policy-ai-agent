@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Invoice - Teal Professional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: #0a1628;
+            padding: 40px 20px;
+        }
+        .invoice-doc {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(48, 207, 208, 0.4);
+        }
+        .header-gradient {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+            padding: 50px 40px;
+            color: white;
+            position: relative;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-section h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        .logo-section p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .invoice-number-box {
+            background: rgba(255,255,255,0.15);
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        .invoice-number-box h3 {
+            font-size: 14px;
+            font-weight: normal;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+        .invoice-number-box .number {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .patient-info-section {
+            padding: 35px 40px;
+            background: linear-gradient(to right, #e8f9f9 0%, #f5f0ff 100%);
+        }
+        .info-grid-layout {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        .info-item {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(48, 207, 208, 0.2);
+        }
+        .info-label {
+            font-weight: 600;
+            color: #330867;
+            min-width: 150px;
+            font-size: 14px;
+        }
+        .info-data {
+            color: #333;
+            font-size: 14px;
+        }
+        .billing-section {
+            padding: 35px 40px;
+        }
+        .section-heading {
+            color: #330867;
+            font-size: 20px;
+            margin: 30px 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #30cfd0;
+            font-weight: normal;
+        }
+        .billing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+        .billing-table thead {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+            color: white;
+        }
+        .billing-table th {
+            padding: 14px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .billing-table td {
+            padding: 14px;
+            border-bottom: 1px solid #e8f9f9;
+            font-size: 14px;
+        }
+        .billing-table tbody tr:hover {
+            background: #e8f9f9;
+        }
+        .amount-cell {
+            text-align: right;
+            font-weight: 600;
+            color: #330867;
+        }
+        .summary-container {
+            background: linear-gradient(135deg, #e8f9f9 0%, #f5f0ff 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 35px;
+            border: 2px solid #30cfd0;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            font-size: 17px;
+            color: #333;
+        }
+        .summary-item.grand {
+            border-top: 3px solid #330867;
+            margin-top: 15px;
+            padding-top: 18px;
+            font-size: 26px;
+            font-weight: bold;
+            color: #330867;
+        }
+        .notes-section {
+            padding: 25px 40px;
+            background: #fffef5;
+            border-top: 2px dashed #30cfd0;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.8;
+        }
+        .notes-section h4 {
+            color: #330867;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+        .footer-bar {
+            background: linear-gradient(135deg, #330867 0%, #30cfd0 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-doc">
+        <div class="header-gradient">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1>🩺 Elite Medical Institute</h1>
+                    <p>Advanced Healthcare & Diagnostics</p>
+                    <p>ISO 9001:2015 Certified | NABH Accredited</p>
+                </div>
+                <div class="invoice-number-box">
+                    <h3>INVOICE NUMBER</h3>
+                    <div class="number">EMI-2025-6789</div>
+                    <div style="margin-top: 10px; font-size: 14px;">10-Nov-2025</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="patient-info-section">
+            <div class="info-grid-layout">
+                <div>
+                    <div class="info-item">
+                        <div class="info-label">Patient Name:</div>
+                        <div class="info-data">Mr. Vikram Singh</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Patient ID:</div>
+                        <div class="info-data">EMI-PT-3456</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Age / Gender:</div>
+                        <div class="info-data">48 Years / Male</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Contact:</div>
+                        <div class="info-data">+91 98123 45678</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="info-item">
+                        <div class="info-label">Admission Date:</div>
+                        <div class="info-data">06-Nov-2025, 06:30 PM</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Discharge Date:</div>
+                        <div class="info-data">10-Nov-2025, 10:00 AM</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Room Type:</div>
+                        <div class="info-data">Single Private AC Room</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Consultant:</div>
+                        <div class="info-data">Dr. Kavita Reddy, MD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="billing-section">
+            <div class="section-heading">Room & Accommodation</div>
+            <table class="billing-table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th style="width: 120px;">Qty/Days</th>
+                        <th style="width: 130px;">Unit Price</th>
+                        <th style="width: 130px;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Single Private AC Room</td>
+                        <td>4 days</td>
+                        <td>₹8,000/day</td>
+                        <td class="amount-cell">₹32,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Nursing & Care Services</td>
+                        <td>4 days</td>
+                        <td>₹1,800/day</td>
+                        <td class="amount-cell">₹7,200.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-heading">Medical Procedures & Consultations</div>
+            <table class="billing-table">
+                <tbody>
+                    <tr>
+                        <td>Specialist Consultation</td>
+                        <td>5 visits</td>
+                        <td>₹1,200/visit</td>
+                        <td class="amount-cell">₹6,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Endoscopy Procedure</td>
+                        <td>1</td>
+                        <td>₹8,500</td>
+                        <td class="amount-cell">₹8,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Biopsy & Pathology</td>
+                        <td>1</td>
+                        <td>₹3,500</td>
+                        <td class="amount-cell">₹3,500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-heading">Diagnostic Tests & Imaging</div>
+            <table class="billing-table">
+                <tbody>
+                    <tr>
+                        <td>Complete Blood Count (CBC)</td>
+                        <td>2</td>
+                        <td>₹700</td>
+                        <td class="amount-cell">₹1,400.00</td>
+                    </tr>
+                    <tr>
+                        <td>Liver & Kidney Function Tests</td>
+                        <td>1 panel</td>
+                        <td>₹2,500</td>
+                        <td class="amount-cell">₹2,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>MRI Scan - Abdomen</td>
+                        <td>1</td>
+                        <td>₹7,000</td>
+                        <td class="amount-cell">₹7,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Ultrasound - Whole Abdomen</td>
+                        <td>1</td>
+                        <td>₹1,800</td>
+                        <td class="amount-cell">₹1,800.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-heading">Pharmacy & Medications</div>
+            <table class="billing-table">
+                <tbody>
+                    <tr>
+                        <td>Injectable Medications</td>
+                        <td>4 days</td>
+                        <td>₹650/day</td>
+                        <td class="amount-cell">₹2,600.00</td>
+                    </tr>
+                    <tr>
+                        <td>Oral Medications</td>
+                        <td>4 days</td>
+                        <td>₹400/day</td>
+                        <td class="amount-cell">₹1,600.00</td>
+                    </tr>
+                    <tr>
+                        <td>IV Fluids & Electrolytes</td>
+                        <td>8 units</td>
+                        <td>₹450/unit</td>
+                        <td class="amount-cell">₹3,600.00</td>
+                    </tr>
+                    <tr>
+                        <td>Surgical Consumables</td>
+                        <td>1 set</td>
+                        <td>₹4,200</td>
+                        <td class="amount-cell">₹4,200.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-heading">Miscellaneous Charges</div>
+            <table class="billing-table">
+                <tbody>
+                    <tr>
+                        <td>Registration Fee</td>
+                        <td>1</td>
+                        <td>₹700</td>
+                        <td class="amount-cell">₹700.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Records & Reports</td>
+                        <td>1</td>
+                        <td>₹400</td>
+                        <td class="amount-cell">₹400.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="summary-container">
+                <div class="summary-item">
+                    <span>Subtotal:</span>
+                    <span>₹83,000.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>GST (5%):</span>
+                    <span>₹4,150.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>Discount (Corporate Tie-up 5%):</span>
+                    <span>- ₹4,150.00</span>
+                </div>
+                <div class="summary-item grand">
+                    <span>TOTAL PAYABLE:</span>
+                    <span>₹83,000.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="notes-section">
+            <h4>📌 Important Notes:</h4>
+            <p>• This invoice is valid for insurance reimbursement and tax purposes.</p>
+            <p>• Payment is requested within 15 days of discharge date.</p>
+            <p>• For billing inquiries, please contact: billing@elitemedical.com or +91 40 1234 5678</p>
+            <p>• All charges are as per hospital tariff approved by regulatory authorities.</p>
+        </div>
+
+        <div class="footer-bar">
+            <strong>Elite Medical Institute</strong><br>
+            Plot No. 234, Medical Complex, Hi-Tech City, Hyderabad - 500081<br>
+            Phone: +91 40 1234 5678 | Emergency: 108 | Ambulance: +91 40 1234 0000<br>
+            Email: info@elitemedical.com | Website: www.elitemedicalinstitute.com<br><br>
+            We appreciate your trust in our services. Wishing you a speedy recovery!
+        </div>
+    </div>
+</body>
+</html>
+

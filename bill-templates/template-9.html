@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Medical Bill - Peach Theme</title>
+    <style>
+        body {
+            font-family: 'Calibri', 'Gill Sans', sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            margin: 0;
+            padding: 35px;
+        }
+        .bill-sheet {
+            max-width: 920px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 12px 48px rgba(252, 182, 159, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .top-strip {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 35px 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #fcb69f;
+        }
+        .company-brand h1 {
+            font-size: 32px;
+            color: #d2691e;
+            margin-bottom: 8px;
+        }
+        .company-brand p {
+            color: #8b4513;
+            font-size: 14px;
+            margin: 3px 0;
+        }
+        .bill-id-card {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+        .bill-id-card h3 {
+            color: #d2691e;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .bill-id-card .id-num {
+            font-size: 19px;
+            font-weight: bold;
+            color: #333;
+        }
+        .patient-info-bar {
+            background: #fff8f0;
+            padding: 30px 45px;
+            border-bottom: 2px solid #ffecd2;
+        }
+        .info-title {
+            font-size: 18px;
+            color: #d2691e;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .info-row-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .info-cell {
+            font-size: 13px;
+        }
+        .cell-label {
+            color: #8b4513;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+        .cell-value {
+            color: #333;
+            font-size: 14px;
+        }
+        .charges-main {
+            padding: 35px 45px;
+        }
+        .charge-section-title {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #8b4513;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 20px 0 10px 0;
+            border-radius: 6px;
+        }
+        .charge-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .charge-table thead {
+            background: #fff8f0;
+            border-bottom: 2px solid #fcb69f;
+        }
+        .charge-table th {
+            padding: 12px;
+            text-align: left;
+            color: #d2691e;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .charge-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ffecd2;
+            font-size: 14px;
+        }
+        .charge-table tbody tr:hover {
+            background: #fff8f0;
+        }
+        .amount-right {
+            text-align: right;
+            font-weight: 600;
+            color: #d2691e;
+        }
+        .totals-summary {
+            background: linear-gradient(135deg, #fff8f0 0%, #ffecd2 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border: 3px solid #fcb69f;
+        }
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 17px;
+        }
+        .total-line.final-amount {
+            border-top: 3px solid #d2691e;
+            margin-top: 15px;
+            padding-top: 18px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #d2691e;
+        }
+        .disclaimer {
+            margin: 30px 45px;
+            padding: 20px;
+            background: #fffacd;
+            border-left: 5px solid #ffd700;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.7;
+        }
+        .bottom-footer {
+            background: linear-gradient(135deg, #d2691e 0%, #fcb69f 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="bill-sheet">
+        <div class="top-strip">
+            <div class="company-brand">
+                <h1>📊 Prime Healthcare Corporation</h1>
+                <p>Corporate Medical Services Division</p>
+                <p>📍 Tower A, Business Park, Gurgaon - 122002</p>
+                <p>📞 +91 124 456 7890 | ✉️ billing@primehealthcare.com</p>
+            </div>
+            <div class="bill-id-card">
+                <h3>BILL NUMBER</h3>
+                <div class="id-num">PHC-2025-5432</div>
+                <div style="margin-top: 8px; font-size: 13px; color: #666;">10-Nov-2025</div>
+            </div>
+        </div>
+
+        <div class="patient-info-bar">
+            <div class="info-title">Patient & Hospitalization Details</div>
+            <div class="info-row-grid">
+                <div class="info-cell">
+                    <div class="cell-label">Patient Name</div>
+                    <div class="cell-value">Mr. Arjun Mehta</div>
+                </div>
+                <div class="info-cell">
+                    <div class="cell-label">Patient ID</div>
+                    <div class="cell-value">PHC-PT-6789</div>
+                </div>
+                <div class="info-cell">
+                    <div class="cell-label">Age / Gender</div>
+                    <div class="cell-value">52 Years / Male</div>
+                </div>
+                <div class="info-cell">
+                    <div class="cell-label">Contact</div>
+                    <div class="cell-value">+91 98765 01234</div>
+                </div>
+                <div class="info-cell">
+                    <div class="cell-label">Admission Date</div>
+                    <div class="cell-value">05-Nov-2025, 02:00 PM</div>
+                </div>
+                <div class="info-cell">
+                    <div class="cell-label">Discharge Date</div>
+                    <div class="cell-value">10-Nov-2025, 11:00 AM</div>
+                </div>
+                <div class="info-cell">
+                    <div class="cell-label">Room Category</div>
+                    <div class="cell-value">Deluxe Private</div>
+                </div>
+                <div class="info-cell">
+                    <div class="cell-label">Physician</div>
+                    <div class="cell-value">Dr. Sanjay Gupta</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charges-main">
+            <div class="charge-section-title">🏨 Accommodation Services</div>
+            <table class="charge-table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th style="width: 100px;">Quantity</th>
+                        <th style="width: 120px;">Unit Rate</th>
+                        <th style="width: 130px;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Deluxe Private Room</td>
+                        <td>5 days</td>
+                        <td>₹9,000/day</td>
+                        <td class="amount-right">₹45,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>24/7 Nursing Care</td>
+                        <td>5 days</td>
+                        <td>₹2,000/day</td>
+                        <td class="amount-right">₹10,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="charge-section-title">🩺 Medical Services & Procedures</div>
+            <table class="charge-table">
+                <tbody>
+                    <tr>
+                        <td>Senior Consultant Fees</td>
+                        <td>6 visits</td>
+                        <td>₹1,500/visit</td>
+                        <td class="amount-right">₹9,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Cardiac Catheterization</td>
+                        <td>1</td>
+                        <td>₹25,000</td>
+                        <td class="amount-right">₹25,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>ICU Monitoring (24 hrs)</td>
+                        <td>1 day</td>
+                        <td>₹8,000</td>
+                        <td class="amount-right">₹8,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="charge-section-title">🔬 Diagnostic & Imaging</div>
+            <table class="charge-table">
+                <tbody>
+                    <tr>
+                        <td>Cardiac Enzyme Tests</td>
+                        <td>3 sets</td>
+                        <td>₹1,200/set</td>
+                        <td class="amount-right">₹3,600.00</td>
+                    </tr>
+                    <tr>
+                        <td>2D Echo Cardiography</td>
+                        <td>2</td>
+                        <td>₹2,500</td>
+                        <td class="amount-right">₹5,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>CT Angiography</td>
+                        <td>1</td>
+                        <td>₹12,000</td>
+                        <td class="amount-right">₹12,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Complete Blood Panel</td>
+                        <td>2</td>
+                        <td>₹1,500</td>
+                        <td class="amount-right">₹3,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="charge-section-title">💊 Pharmacy & Medical Supplies</div>
+            <table class="charge-table">
+                <tbody>
+                    <tr>
+                        <td>Cardiac Medications</td>
+                        <td>5 days</td>
+                        <td>₹800/day</td>
+                        <td class="amount-right">₹4,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Injectable Drugs</td>
+                        <td>5 days</td>
+                        <td>₹600/day</td>
+                        <td class="amount-right">₹3,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>IV Fluids & Electrolytes</td>
+                        <td>10 units</td>
+                        <td>₹500/unit</td>
+                        <td class="amount-right">₹5,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Consumables & Disposables</td>
+                        <td>1 set</td>
+                        <td>₹6,500</td>
+                        <td class="amount-right">₹6,500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="charge-section-title">📋 Administrative & Other Charges</div>
+            <table class="charge-table">
+                <tbody>
+                    <tr>
+                        <td>Registration & Admission</td>
+                        <td>1</td>
+                        <td>₹1,000</td>
+                        <td class="amount-right">₹1,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Records & Documentation</td>
+                        <td>1</td>
+                        <td>₹500</td>
+                        <td class="amount-right">₹500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="totals-summary">
+                <div class="total-line">
+                    <span>Subtotal:</span>
+                    <span>₹1,40,600.00</span>
+                </div>
+                <div class="total-line">
+                    <span>GST @ 5%:</span>
+                    <span>₹7,030.00</span>
+                </div>
+                <div class="total-line">
+                    <span>Insurance Pre-Authorization Discount:</span>
+                    <span>- ₹10,000.00</span>
+                </div>
+                <div class="total-line final-amount">
+                    <span>NET PAYABLE AMOUNT:</span>
+                    <span>₹1,37,630.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <strong>⚠️ Terms & Conditions:</strong><br>
+            • This invoice is computer-generated and valid for insurance claims.<br>
+            • Payment is due within 30 days for corporate accounts, 7 days for individual patients.<br>
+            • Late payment may attract interest charges as per hospital policy.<br>
+            • For billing queries: billing@primehealthcare.com | +91 124 456 7890
+        </div>
+
+        <div class="bottom-footer">
+            <strong>Prime Healthcare Corporation</strong><br>
+            Tower A, Corporate Business Park, Sector 44, Gurgaon - 122002<br>
+            Phone: +91 124 456 7890 | Emergency: +91 124 456 0000<br>
+            Email: info@primehealthcare.com | www.primehealthcarecorp.com<br><br>
+            Accredited by JCI, NABH & ISO 9001:2015 | Thank you for your trust in our services.
+        </div>
+    </div>
+</body>
+</html>
+

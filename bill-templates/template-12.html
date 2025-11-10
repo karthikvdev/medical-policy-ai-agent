@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Bill - Coral Theme</title>
+    <style>
+        body {
+            font-family: 'Lucida Sans', sans-serif;
+            background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);
+            margin: 0;
+            padding: 30px;
+        }
+        .bill-main {
+            max-width: 890px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 12px 45px rgba(255, 110, 127, 0.3);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .coral-banner {
+            background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);
+            padding: 45px;
+            color: white;
+            position: relative;
+        }
+        .banner-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .hospital-branding h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .hospital-branding p {
+            font-size: 14px;
+            opacity: 0.95;
+            margin: 4px 0;
+        }
+        .bill-card {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .bill-card h2 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: normal;
+        }
+        .bill-card .bill-num {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .patient-info-panel {
+            padding: 35px 45px;
+            background: linear-gradient(to bottom, #fff5f7 0%, white 100%);
+        }
+        .panel-heading {
+            font-size: 20px;
+            color: #ff6e7f;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ff6e7f;
+        }
+        .info-layout {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .info-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #fff5f7;
+        }
+        .card-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .card-data {
+            font-size: 15px;
+            color: #333;
+            font-weight: 600;
+        }
+        .billing-main {
+            padding: 35px 45px;
+        }
+        .service-category {
+            background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);
+            color: white;
+            padding: 12px 22px;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 25px 0 15px 0;
+            border-radius: 8px;
+        }
+        .service-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .service-table thead {
+            background: #fff5f7;
+            border-bottom: 2px solid #ff6e7f;
+        }
+        .service-table th {
+            padding: 12px;
+            text-align: left;
+            color: #ff6e7f;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .service-table td {
+            padding: 12px;
+            border-bottom: 1px solid #fff5f7;
+            font-size: 14px;
+        }
+        .service-table tbody tr:hover {
+            background: #fff5f7;
+        }
+        .price-col {
+            text-align: right;
+            font-weight: 600;
+            color: #ff6e7f;
+        }
+        .final-summary {
+            background: linear-gradient(135deg, #fff5f7 0%, #f0f9ff 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border: 3px solid #ff6e7f;
+        }
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 17px;
+        }
+        .summary-line.total-final {
+            border-top: 3px solid #ff6e7f;
+            margin-top: 15px;
+            padding-top: 18px;
+            font-size: 26px;
+            font-weight: bold;
+            color: #ff6e7f;
+        }
+        .info-note {
+            margin: 30px 45px;
+            padding: 20px;
+            background: #fffef0;
+            border-left: 5px solid #ffd700;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.7;
+        }
+        .coral-footer {
+            background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="bill-main">
+        <div class="coral-banner">
+            <div class="banner-content">
+                <div class="hospital-branding">
+                    <h1>🏥 Coral Bay Hospital</h1>
+                    <p>Advanced Multi-Specialty Care</p>
+                    <p>📍 567 Bay Road, Coastal District, Visakhapatnam - 530001</p>
+                    <p>📞 +91 891 234 5678 | ✉️ info@coralbay.in</p>
+                </div>
+                <div class="bill-card">
+                    <h2>INVOICE</h2>
+                    <div class="bill-num">CBH-2025-9876</div>
+                    <div style="margin-top: 10px; font-size: 14px;">10-Nov-2025</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="patient-info-panel">
+            <div class="panel-heading">Patient Details</div>
+            <div class="info-layout">
+                <div class="info-card">
+                    <div class="card-label">Patient Name</div>
+                    <div class="card-data">Mr. Srinivas Rao</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Patient ID</div>
+                    <div class="card-data">CBH-PT-5432</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Age / Gender</div>
+                    <div class="card-data">55 Years / Male</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Contact Number</div>
+                    <div class="card-data">+91 98765 09876</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Admission Date</div>
+                    <div class="card-data">06-Nov-2025, 03:00 PM</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Discharge Date</div>
+                    <div class="card-data">10-Nov-2025, 01:30 PM</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Room Type</div>
+                    <div class="card-data">Single Private Room</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Treating Doctor</div>
+                    <div class="card-data">Dr. Lakshmi Naidu</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="billing-main">
+            <div class="service-category">🛏️ Room & Boarding</div>
+            <table class="service-table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th style="width: 100px;">Qty</th>
+                        <th style="width: 120px;">Rate</th>
+                        <th style="width: 120px;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Single Private Room</td>
+                        <td>4 days</td>
+                        <td>₹7,500/day</td>
+                        <td class="price-col">₹30,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Nursing & Attendant Services</td>
+                        <td>4 days</td>
+                        <td>₹1,500/day</td>
+                        <td class="price-col">₹6,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="service-category">🩺 Medical Services</div>
+            <table class="service-table">
+                <tbody>
+                    <tr>
+                        <td>Cardiologist Consultation</td>
+                        <td>5 visits</td>
+                        <td>₹1,200/visit</td>
+                        <td class="price-col">₹6,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Angioplasty Procedure</td>
+                        <td>1</td>
+                        <td>₹45,000</td>
+                        <td class="price-col">₹45,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>ICU Care (24 hours)</td>
+                        <td>1 day</td>
+                        <td>₹10,000</td>
+                        <td class="price-col">₹10,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="service-category">🔬 Diagnostic Tests</div>
+            <table class="service-table">
+                <tbody>
+                    <tr>
+                        <td>Cardiac Enzyme Panel</td>
+                        <td>2</td>
+                        <td>₹1,500</td>
+                        <td class="price-col">₹3,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>ECG & Holter Monitoring</td>
+                        <td>1</td>
+                        <td>₹2,500</td>
+                        <td class="price-col">₹2,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>2D Echo</td>
+                        <td>1</td>
+                        <td>₹2,800</td>
+                        <td class="price-col">₹2,800.00</td>
+                    </tr>
+                    <tr>
+                        <td>Complete Blood Work</td>
+                        <td>2</td>
+                        <td>₹1,200</td>
+                        <td class="price-col">₹2,400.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="service-category">💊 Pharmacy & Supplies</div>
+            <table class="service-table">
+                <tbody>
+                    <tr>
+                        <td>Cardiac Medications</td>
+                        <td>4 days</td>
+                        <td>₹900/day</td>
+                        <td class="price-col">₹3,600.00</td>
+                    </tr>
+                    <tr>
+                        <td>Injectable Drugs</td>
+                        <td>4 days</td>
+                        <td>₹700/day</td>
+                        <td class="price-col">₹2,800.00</td>
+                    </tr>
+                    <tr>
+                        <td>IV Fluids</td>
+                        <td>8 units</td>
+                        <td>₹450/unit</td>
+                        <td class="price-col">₹3,600.00</td>
+                    </tr>
+                    <tr>
+                        <td>Stent & Medical Implants</td>
+                        <td>1</td>
+                        <td>₹35,000</td>
+                        <td class="price-col">₹35,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Surgical Consumables</td>
+                        <td>1 set</td>
+                        <td>₹5,500</td>
+                        <td class="price-col">₹5,500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="service-category">📋 Administrative</div>
+            <table class="service-table">
+                <tbody>
+                    <tr>
+                        <td>Registration Fee</td>
+                        <td>1</td>
+                        <td>₹800</td>
+                        <td class="price-col">₹800.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Records</td>
+                        <td>1</td>
+                        <td>₹400</td>
+                        <td class="price-col">₹400.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="final-summary">
+                <div class="summary-line">
+                    <span>Subtotal:</span>
+                    <span>₹1,59,400.00</span>
+                </div>
+                <div class="summary-line">
+                    <span>GST @ 5%:</span>
+                    <span>₹7,970.00</span>
+                </div>
+                <div class="summary-line total-final">
+                    <span>TOTAL PAYABLE:</span>
+                    <span>₹1,67,370.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-note">
+            <strong>📌 Important Information:</strong><br>
+            • This invoice is valid for insurance claims and reimbursement.<br>
+            • Payment due within 15 days of discharge.<br>
+            • For queries: billing@coralbay.in | +91 891 234 5678
+        </div>
+
+        <div class="coral-footer">
+            <strong>Coral Bay Hospital</strong><br>
+            567 Bay Road, Coastal District, Visakhapatnam - 530001<br>
+            Phone: +91 891 234 5678 | Emergency: 108<br>
+            Email: info@coralbay.in | www.coralbayhospital.com<br><br>
+            Thank you for trusting Coral Bay Hospital with your cardiac care!
+        </div>
+    </div>
+</body>
+</html>
+

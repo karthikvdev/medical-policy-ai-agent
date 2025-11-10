@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Bill - Modern Pink Theme</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #fef5f9;
+            padding: 30px;
+        }
+        .bill-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(245, 87, 108, 0.15);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .hospital-logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .hospital-name {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .hospital-tagline {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .bill-number {
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .content {
+            padding: 40px;
+        }
+        .info-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .info-box {
+            background: #fef5f9;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #f5576c;
+        }
+        .info-label {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .info-value {
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f5576c;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f093fb;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        thead {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        tbody tr:hover {
+            background: #fef5f9;
+        }
+        .amount {
+            text-align: right;
+            font-weight: 600;
+        }
+        .total-section {
+            background: #fef5f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 16px;
+        }
+        .grand-total {
+            font-size: 24px;
+            font-weight: bold;
+            color: #f5576c;
+            border-top: 2px solid #f093fb;
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+        .footer {
+            background: #f9f9f9;
+            padding: 25px 40px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            border-top: 3px solid #f093fb;
+        }
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+        }
+        .signature-box {
+            text-align: center;
+            flex: 1;
+        }
+        .signature-line {
+            border-top: 2px solid #333;
+            margin-top: 50px;
+            padding-top: 10px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="bill-container">
+        <div class="header">
+            <div class="hospital-logo">🏨</div>
+            <div class="hospital-name">City Care Hospital</div>
+            <div class="hospital-tagline">Excellence in Healthcare Since 1995</div>
+            <div class="bill-number">Bill No: CCH-2025-00142</div>
+        </div>
+
+        <div class="content">
+            <div class="info-section">
+                <div class="info-box">
+                    <div class="info-label">Patient Name</div>
+                    <div class="info-value">Mr. Rajesh Kumar</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Patient ID</div>
+                    <div class="info-value">PT-45678</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Admission Date</div>
+                    <div class="info-value">05-Nov-2025, 10:30 AM</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Discharge Date</div>
+                    <div class="info-value">09-Nov-2025, 02:15 PM</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Room Type</div>
+                    <div class="info-value">Single Private Room</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Doctor</div>
+                    <div class="info-value">Dr. Anjali Sharma</div>
+                </div>
+            </div>
+
+            <div class="section-title">Room & Accommodation Charges</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Days/Qty</th>
+                        <th>Rate</th>
+                        <th class="amount">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Single Private Room</td>
+                        <td>4 days</td>
+                        <td>₹6,500/day</td>
+                        <td class="amount">₹26,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Nursing Charges</td>
+                        <td>4 days</td>
+                        <td>₹1,200/day</td>
+                        <td class="amount">₹4,800.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-title">Medical Services & Procedures</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Days/Qty</th>
+                        <th>Rate</th>
+                        <th class="amount">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Doctor Consultation</td>
+                        <td>5 visits</td>
+                        <td>₹800/visit</td>
+                        <td class="amount">₹4,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>ECG Test</td>
+                        <td>2</td>
+                        <td>₹600</td>
+                        <td class="amount">₹1,200.00</td>
+                    </tr>
+                    <tr>
+                        <td>Blood Tests (Complete)</td>
+                        <td>1</td>
+                        <td>₹2,500</td>
+                        <td class="amount">₹2,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>X-Ray Chest</td>
+                        <td>1</td>
+                        <td>₹800</td>
+                        <td class="amount">₹800.00</td>
+                    </tr>
+                    <tr>
+                        <td>IV Fluids & Administration</td>
+                        <td>4 days</td>
+                        <td>₹600/day</td>
+                        <td class="amount">₹2,400.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-title">Medicines & Consumables</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Days/Qty</th>
+                        <th>Rate</th>
+                        <th class="amount">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Antibiotics (Injectable)</td>
+                        <td>4 days</td>
+                        <td>₹450/day</td>
+                        <td class="amount">₹1,800.00</td>
+                    </tr>
+                    <tr>
+                        <td>Pain Management Medication</td>
+                        <td>4 days</td>
+                        <td>₹300/day</td>
+                        <td class="amount">₹1,200.00</td>
+                    </tr>
+                    <tr>
+                        <td>Surgical Consumables</td>
+                        <td>1</td>
+                        <td>₹3,500</td>
+                        <td class="amount">₹3,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Disposable Items</td>
+                        <td>1</td>
+                        <td>₹1,800</td>
+                        <td class="amount">₹1,800.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-title">Other Charges</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Days/Qty</th>
+                        <th>Rate</th>
+                        <th class="amount">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Registration Fee</td>
+                        <td>1</td>
+                        <td>₹500</td>
+                        <td class="amount">₹500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Records</td>
+                        <td>1</td>
+                        <td>₹200</td>
+                        <td class="amount">₹200.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="total-section">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span>₹50,700.00</span>
+                </div>
+                <div class="total-row">
+                    <span>GST (5%):</span>
+                    <span>₹2,535.00</span>
+                </div>
+                <div class="total-row grand-total">
+                    <span>Total Amount Payable:</span>
+                    <span>₹53,235.00</span>
+                </div>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="signature-line">Patient/Guardian Signature</div>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line">Authorized Signatory</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <strong>City Care Hospital</strong><br>
+            123 Medical Plaza, Healthcare District, Mumbai - 400001<br>
+            Phone: +91 22 1234 5678 | Email: billing@citycare.com<br>
+            www.citycarehospital.com
+        </div>
+    </div>
+</body>
+</html>
+

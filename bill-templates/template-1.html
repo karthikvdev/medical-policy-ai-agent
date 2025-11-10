@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Bill - Statement</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            color: #333;
+        }
+        .header {
+            border-bottom: 3px solid #2c5aa0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .hospital-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c5aa0;
+            margin-bottom: 5px;
+        }
+        .hospital-info {
+            font-size: 12px;
+            color: #666;
+        }
+        .bill-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-transform: uppercase;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .section-title {
+            background: #f0f0f0;
+            padding: 8px 10px;
+            font-weight: bold;
+            border-left: 4px solid #2c5aa0;
+            margin-bottom: 10px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .info-item {
+            font-size: 13px;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th {
+            background: #2c5aa0;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-size: 13px;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            font-size: 13px;
+        }
+        tr:hover {
+            background: #f9f9f9;
+        }
+        .amount {
+            text-align: right;
+        }
+        .summary-table {
+            margin-top: 20px;
+            float: right;
+            width: 350px;
+        }
+        .summary-table td {
+            border: none;
+            padding: 8px;
+        }
+        .summary-table .total-row {
+            font-weight: bold;
+            font-size: 16px;
+            background: #f0f0f0;
+            border-top: 2px solid #2c5aa0;
+        }
+        .footer {
+            clear: both;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            font-size: 11px;
+            color: #666;
+        }
+        .payment-info {
+            background: #fffbcc;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin-top: 20px;
+        }
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="hospital-name">Apollo Multispecialty Hospital</div>
+        <div class="hospital-info">
+            123, Anna Salai, Mount Road<br>
+            Chennai, Tamil Nadu 600002<br>
+            Phone: +91 44 2829 3333 | Fax: +91 44 2829 3334<br>
+            www.apollohospital.com
+        </div>
+    </div>
+
+    <div class="bill-title">Medical Bill Statement</div>
+
+    <div class="section">
+        <div class="section-title">Patient Information</div>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Patient Name:</div>
+                <div>Rajesh Kumar</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Patient ID:</div>
+                <div>PAT-2024-78945</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Date of Birth:</div>
+                <div>15th March, 1985</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Account Number:</div>
+                <div>ACC-89456123</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Service Information</div>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Date of Admission:</div>
+                <div>06th November, 2025</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Date of Discharge:</div>
+                <div>09th November, 2025</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Statement Date:</div>
+                <div>21st November, 2025</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Length of Stay:</div>
+                <div>3 Days</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Admission Type:</div>
+                <div>Inpatient</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Department:</div>
+                <div>General Medicine</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Room Type:</div>
+                <div>Semi-Private (Twin Sharing)</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Attending Physician:</div>
+                <div>Dr. Priya Sharma, MBBS, MD</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Payment Information</div>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Payment Mode:</div>
+                <div>Self Payment (No Insurance)</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Payment Status:</div>
+                <div>Pending</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Itemized Charges</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Service Code</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th class="amount">Charge</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ROOM-SP</td>
+                    <td>Room Charges - Semi-Private (3 days @ ₹2,500/day)</td>
+                    <td>15-18/10/2024</td>
+                    <td class="amount">₹7,500.00</td>
+                </tr>
+                <tr>
+                    <td>NURS-001</td>
+                    <td>Nursing Charges (3 days @ ₹800/day)</td>
+                    <td>15-18/10/2024</td>
+                    <td class="amount">₹2,400.00</td>
+                </tr>
+                <tr>
+                    <td>DOC-VISIT</td>
+                    <td>Doctor Visit Charges (Daily rounds x 3)</td>
+                    <td>15-18/10/2024</td>
+                    <td class="amount">₹3,000.00</td>
+                </tr>
+                <tr>
+                    <td>LAB-CBC</td>
+                    <td>Complete Blood Count (CBC) with ESR</td>
+                    <td>15/10/2024</td>
+                    <td class="amount">₹450.00</td>
+                </tr>
+                <tr>
+                    <td>LAB-LFT</td>
+                    <td>Liver Function Test (LFT)</td>
+                    <td>15/10/2024</td>
+                    <td class="amount">₹650.00</td>
+                </tr>
+                <tr>
+                    <td>LAB-RFT</td>
+                    <td>Renal Function Test (RFT)</td>
+                    <td>16/10/2024</td>
+                    <td class="amount">₹700.00</td>
+                </tr>
+                <tr>
+                    <td>RAD-CXR</td>
+                    <td>Chest X-Ray (PA & Lateral View)</td>
+                    <td>15/10/2024</td>
+                    <td class="amount">₹600.00</td>
+                </tr>
+                <tr>
+                    <td>RAD-USG</td>
+                    <td>Ultrasound - Abdomen (Complete)</td>
+                    <td>16/10/2024</td>
+                    <td class="amount">₹1,800.00</td>
+                </tr>
+                <tr>
+                    <td>CARD-ECG</td>
+                    <td>Electrocardiogram (ECG)</td>
+                    <td>15/10/2024</td>
+                    <td class="amount">₹350.00</td>
+                </tr>
+                <tr>
+                    <td>IV-FLUID</td>
+                    <td>IV Fluids & Injections</td>
+                    <td>15-18/10/2024</td>
+                    <td class="amount">₹2,800.00</td>
+                </tr>
+                <tr>
+                    <td>PHARM</td>
+                    <td>Pharmacy - Medications & Consumables</td>
+                    <td>15-18/10/2024</td>
+                    <td class="amount">₹5,450.00</td>
+                </tr>
+                <tr>
+                    <td>DIET</td>
+                    <td>Dietary Charges (3 days @ ₹400/day)</td>
+                    <td>15-18/10/2024</td>
+                    <td class="amount">₹1,200.00</td>
+                </tr>
+                <tr>
+                    <td>OT-PROC</td>
+                    <td>Minor Procedure Charges</td>
+                    <td>16/10/2024</td>
+                    <td class="amount">₹3,500.00</td>
+                </tr>
+                <tr>
+                    <td>LAB-COL</td>
+                    <td>Sample Collection & Processing</td>
+                    <td>15-17/10/2024</td>
+                    <td class="amount">₹300.00</td>
+                </tr>
+                <tr>
+                    <td>MISC</td>
+                    <td>Registration & Administrative Charges</td>
+                    <td>15/10/2024</td>
+                    <td class="amount">₹500.00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="summary-table">
+            <tr>
+                <td>Total Charges:</td>
+                <td class="amount">₹31,200.00</td>
+            </tr>
+            <tr>
+                <td>Discount Applied:</td>
+                <td class="amount">₹0.00</td>
+            </tr>
+            <tr>
+                <td>Previous Payments:</td>
+                <td class="amount">₹0.00</td>
+            </tr>
+            <tr class="total-row">
+                <td>Total Amount Due:</td>
+                <td class="amount">₹31,200.00</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="clear: both;"></div>
+
+    <div class="payment-info">
+        <strong>Payment Due Date: 1st December, 2024</strong><br><br>
+        <strong>Payment Options:</strong><br>
+        • Online: www.apollohospital.com/payments<br>
+        • Phone: +91 44 2829 3335 (Billing Department)<br>
+        • UPI: apollo.hospital@upi<br>
+        • NEFT/RTGS: Account No: 123456789, IFSC: HDFC0001234, HDFC Bank<br>
+        • In Person: Visit our Billing Counter (Mon-Sat, 9:00 AM - 6:00 PM)<br><br>
+        <em>Please include your account number with your payment. GST: 18% included in charges.</em>
+    </div>
+
+    <div class="footer">
+        <strong>Important Information:</strong><br>
+        This is a statement of services rendered and amounts owed. If you have questions about this bill or believe there is an error, 
+        please contact our Billing Department at (555) 123-4570 within 30 days of the statement date. Payment plans are available upon request. 
+        For financial assistance information, visit our website or call our Financial Counseling Department at (555) 123-4571.<br><br>
+        <strong>Notice:</strong> This is a sample medical bill for demonstration purposes only. Any resemblance to actual persons, organizations, 
+        or medical records is purely coincidental.
+    </div>
+</body>
+</html>

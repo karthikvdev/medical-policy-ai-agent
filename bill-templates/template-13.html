@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Invoice - Purple Business</title>
+    <style>
+        body {
+            font-family: 'Franklin Gothic Medium', sans-serif;
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            margin: 0;
+            padding: 35px;
+        }
+        .invoice-wrapper {
+            max-width: 920px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 15px 50px rgba(142, 197, 252, 0.4);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .purple-header {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            padding: 40px 45px;
+            color: #4a148c;
+            border-bottom: 5px solid #6a1b9a;
+        }
+        .header-layout {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+        .org-details h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .org-details p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #6a1b9a;
+        }
+        .invoice-id-box {
+            background: white;
+            padding: 22px 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+        .invoice-id-box h3 {
+            color: #6a1b9a;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .invoice-id-box .id-number {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+        .patient-section {
+            padding: 35px 45px;
+            background: #f3e5f5;
+        }
+        .section-title {
+            font-size: 20px;
+            color: #6a1b9a;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e0c3fc;
+        }
+        .patient-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+        .patient-item {
+            background: white;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid #e0c3fc;
+        }
+        .item-label {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .item-value {
+            font-size: 14px;
+            color: #333;
+            font-weight: 600;
+        }
+        .charges-section {
+            padding: 35px 45px;
+        }
+        .charge-header {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            color: #4a148c;
+            padding: 12px 22px;
+            font-size: 17px;
+            font-weight: 600;
+            margin: 25px 0 15px 0;
+            border-radius: 8px;
+        }
+        .charge-grid {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .charge-grid thead {
+            background: #f3e5f5;
+            border-bottom: 2px solid #6a1b9a;
+        }
+        .charge-grid th {
+            padding: 12px;
+            text-align: left;
+            color: #6a1b9a;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .charge-grid td {
+            padding: 12px;
+            border-bottom: 1px solid #f3e5f5;
+            font-size: 14px;
+        }
+        .charge-grid tbody tr:hover {
+            background: #f3e5f5;
+        }
+        .amount-column {
+            text-align: right;
+            font-weight: 600;
+            color: #6a1b9a;
+        }
+        .totals-box {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e3f2fd 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border: 3px solid #6a1b9a;
+        }
+        .total-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 17px;
+        }
+        .total-item.grand {
+            border-top: 3px solid #6a1b9a;
+            margin-top: 15px;
+            padding-top: 18px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #6a1b9a;
+        }
+        .notes {
+            margin: 30px 45px;
+            padding: 20px;
+            background: #fffacd;
+            border-left: 5px solid #ffd700;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.7;
+        }
+        .purple-footer {
+            background: linear-gradient(135deg, #6a1b9a 0%, #8ec5fc 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-wrapper">
+        <div class="purple-header">
+            <div class="header-layout">
+                <div class="org-details">
+                    <h1>💼 Royal Purple Hospital</h1>
+                    <p>Premium Healthcare Services</p>
+                    <p>📍 890 Royal Avenue, Business District, Ahmedabad - 380001</p>
+                    <p>📞 +91 79 4567 8901 | ✉️ billing@royalpurple.com</p>
+                </div>
+                <div class="invoice-id-box">
+                    <h3>INVOICE NUMBER</h3>
+                    <div class="id-number">RPH-2025-1357</div>
+                    <div style="margin-top: 10px; font-size: 14px; color: #666;">10-Nov-2025</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="patient-section">
+            <div class="section-title">Patient & Hospitalization Information</div>
+            <div class="patient-grid">
+                <div class="patient-item">
+                    <div class="item-label">Patient Name</div>
+                    <div class="item-value">Mrs. Kavita Shah</div>
+                </div>
+                <div class="patient-item">
+                    <div class="item-label">Patient ID</div>
+                    <div class="item-value">RPH-PT-2468</div>
+                </div>
+                <div class="patient-item">
+                    <div class="item-label">Age / Gender</div>
+                    <div class="item-value">47 Years / Female</div>
+                </div>
+                <div class="patient-item">
+                    <div class="item-label">Contact</div>
+                    <div class="item-value">+91 98765 24680</div>
+                </div>
+                <div class="patient-item">
+                    <div class="item-label">Admission Date</div>
+                    <div class="item-value">06-Nov-2025, 11:00 AM</div>
+                </div>
+                <div class="patient-item">
+                    <div class="item-label">Discharge Date</div>
+                    <div class="item-value">10-Nov-2025, 03:00 PM</div>
+                </div>
+                <div class="patient-item">
+                    <div class="item-label">Room Category</div>
+                    <div class="item-value">Deluxe Suite</div>
+                </div>
+                <div class="patient-item">
+                    <div class="item-label">Consultant</div>
+                    <div class="item-value">Dr. Rajesh Patel</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charges-section">
+            <div class="charge-header">🏨 Accommodation Services</div>
+            <table class="charge-grid">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th style="width: 100px;">Quantity</th>
+                        <th style="width: 120px;">Unit Rate</th>
+                        <th style="width: 130px;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Deluxe Suite Room</td>
+                        <td>4 days</td>
+                        <td>₹12,000/day</td>
+                        <td class="amount-column">₹48,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Premium Nursing Care</td>
+                        <td>4 days</td>
+                        <td>₹2,500/day</td>
+                        <td class="amount-column">₹10,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="charge-header">🩺 Medical Procedures & Consultations</div>
+            <table class="charge-grid">
+                <tbody>
+                    <tr>
+                        <td>Senior Consultant Fees</td>
+                        <td>5 visits</td>
+                        <td>₹2,000/visit</td>
+                        <td class="amount-column">₹10,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Laparoscopic Surgery</td>
+                        <td>1</td>
+                        <td>₹65,000</td>
+                        <td class="amount-column">₹65,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Anesthesia Charges</td>
+                        <td>1</td>
+                        <td>₹8,000</td>
+                        <td class="amount-column">₹8,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>OT Charges</td>
+                        <td>3 hours</td>
+                        <td>₹3,000/hour</td>
+                        <td class="amount-column">₹9,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="charge-header">🔬 Diagnostic & Imaging</div>
+            <table class="charge-grid">
+                <tbody>
+                    <tr>
+                        <td>Pre-Operative Blood Tests</td>
+                        <td>1 panel</td>
+                        <td>₹3,500</td>
+                        <td class="amount-column">₹3,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>MRI Scan</td>
+                        <td>1</td>
+                        <td>₹8,000</td>
+                        <td class="amount-column">₹8,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Ultrasound</td>
+                        <td>2</td>
+                        <td>₹1,800</td>
+                        <td class="amount-column">₹3,600.00</td>
+                    </tr>
+                    <tr>
+                        <td>Post-Op Monitoring Tests</td>
+                        <td>1 set</td>
+                        <td>₹2,500</td>
+                        <td class="amount-column">₹2,500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="charge-header">💊 Pharmacy & Medical Supplies</div>
+            <table class="charge-grid">
+                <tbody>
+                    <tr>
+                        <td>Post-Operative Medications</td>
+                        <td>4 days</td>
+                        <td>₹1,200/day</td>
+                        <td class="amount-column">₹4,800.00</td>
+                    </tr>
+                    <tr>
+                        <td>Injectable Drugs</td>
+                        <td>4 days</td>
+                        <td>₹800/day</td>
+                        <td class="amount-column">₹3,200.00</td>
+                    </tr>
+                    <tr>
+                        <td>IV Fluids & Electrolytes</td>
+                        <td>10 units</td>
+                        <td>₹500/unit</td>
+                        <td class="amount-column">₹5,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Surgical Consumables & Implants</td>
+                        <td>1 set</td>
+                        <td>₹12,000</td>
+                        <td class="amount-column">₹12,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="charge-header">📋 Administrative & Other</div>
+            <table class="charge-grid">
+                <tbody>
+                    <tr>
+                        <td>Registration & Admission</td>
+                        <td>1</td>
+                        <td>₹1,500</td>
+                        <td class="amount-column">₹1,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Records & Reports</td>
+                        <td>1</td>
+                        <td>₹600</td>
+                        <td class="amount-column">₹600.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="totals-box">
+                <div class="total-item">
+                    <span>Subtotal:</span>
+                    <span>₹1,94,700.00</span>
+                </div>
+                <div class="total-item">
+                    <span>GST @ 5%:</span>
+                    <span>₹9,735.00</span>
+                </div>
+                <div class="total-item">
+                    <span>Premium Room Discount (5%):</span>
+                    <span>- ₹9,735.00</span>
+                </div>
+                <div class="total-item grand">
+                    <span>NET PAYABLE AMOUNT:</span>
+                    <span>₹1,94,700.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="notes">
+            <strong>⚠️ Terms & Conditions:</strong><br>
+            • This is a computer-generated invoice valid for insurance claims.<br>
+            • Payment due within 30 days for corporate accounts.<br>
+            • For billing queries: billing@royalpurple.com | +91 79 4567 8901
+        </div>
+
+        <div class="purple-footer">
+            <strong>Royal Purple Hospital</strong><br>
+            890 Royal Avenue, Business District, Ahmedabad - 380001<br>
+            Phone: +91 79 4567 8901 | Emergency: +91 79 4567 0000<br>
+            Email: info@royalpurple.com | www.royalpurplehospital.com<br><br>
+            Accredited by JCI & NABH | Thank you for choosing Royal Purple Hospital
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Bill - Mint Fresh</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'Trebuchet MS', sans-serif;
+            background: linear-gradient(135deg, #fddb92 0%, #d1fdff 100%);
+            margin: 0;
+            padding: 30px;
+        }
+        .bill-doc {
+            max-width: 880px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 12px 40px rgba(209, 253, 255, 0.5);
+            border-radius: 18px;
+            overflow: hidden;
+        }
+        .mint-header {
+            background: linear-gradient(135deg, #fddb92 0%, #d1fdff 100%);
+            padding: 45px;
+            text-align: center;
+            color: #006666;
+        }
+        .header-emoji {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+        .clinic-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .clinic-desc {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .bill-badge {
+            display: inline-block;
+            background: white;
+            color: #006666;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            font-size: 16px;
+        }
+        .patient-area {
+            padding: 35px 40px;
+            background: linear-gradient(to right, #fffef5 0%, #f0ffff 100%);
+        }
+        .area-title {
+            font-size: 20px;
+            color: #006666;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #d1fdff;
+        }
+        .patient-layout {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .patient-box {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            border: 2px solid #d1fdff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .box-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .box-value {
+            font-size: 15px;
+            color: #333;
+            font-weight: 600;
+        }
+        .billing-zone {
+            padding: 35px 40px;
+        }
+        .category-banner {
+            background: linear-gradient(135deg, #fddb92 0%, #d1fdff 100%);
+            color: #006666;
+            padding: 12px 22px;
+            font-size: 17px;
+            font-weight: 600;
+            margin: 25px 0 15px 0;
+            border-radius: 10px;
+        }
+        .bill-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .bill-table thead {
+            background: #f0ffff;
+            border-bottom: 2px solid #006666;
+        }
+        .bill-table th {
+            padding: 12px;
+            text-align: left;
+            color: #006666;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .bill-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f0ffff;
+            font-size: 14px;
+        }
+        .bill-table tbody tr:hover {
+            background: #f0ffff;
+        }
+        .cost-col {
+            text-align: right;
+            font-weight: 600;
+            color: #006666;
+        }
+        .summary-panel {
+            background: linear-gradient(135deg, #fffef5 0%, #f0ffff 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border: 3px solid #006666;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 17px;
+        }
+        .summary-row.final {
+            border-top: 3px solid #006666;
+            margin-top: 15px;
+            padding-top: 18px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #006666;
+        }
+        .info-alert {
+            margin: 30px 40px;
+            padding: 20px;
+            background: #fffacd;
+            border-left: 5px solid #ffd700;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.7;
+            border-radius: 8px;
+        }
+        .mint-footer {
+            background: linear-gradient(135deg, #006666 0%, #d1fdff 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="bill-doc">
+        <div class="mint-header">
+            <div class="header-emoji">📋</div>
+            <div class="clinic-title">Mint Fresh Medical Center</div>
+            <div class="clinic-desc">Fresh Approach to Modern Healthcare</div>
+            <div class="bill-badge">Invoice: MFMC-2025-8642 | Date: 10-Nov-2025</div>
+        </div>
+
+        <div class="patient-area">
+            <div class="area-title">Patient Information</div>
+            <div class="patient-layout">
+                <div class="patient-box">
+                    <div class="box-label">Patient Name</div>
+                    <div class="box-value">Mr. Rohan Joshi</div>
+                </div>
+                <div class="patient-box">
+                    <div class="box-label">Patient ID</div>
+                    <div class="box-value">MFMC-PT-9753</div>
+                </div>
+                <div class="patient-box">
+                    <div class="box-label">Age / Gender</div>
+                    <div class="box-value">31 Years / Male</div>
+                </div>
+                <div class="patient-box">
+                    <div class="box-label">Contact Number</div>
+                    <div class="box-value">+91 98234 67890</div>
+                </div>
+                <div class="patient-box">
+                    <div class="box-label">Admission Date</div>
+                    <div class="box-value">08-Nov-2025, 08:00 AM</div>
+                </div>
+                <div class="patient-box">
+                    <div class="box-label">Discharge Date</div>
+                    <div class="box-value">10-Nov-2025, 04:00 PM</div>
+                </div>
+                <div class="patient-box">
+                    <div class="box-label">Room Type</div>
+                    <div class="box-value">Shared Room</div>
+                </div>
+                <div class="patient-box">
+                    <div class="box-label">Treating Doctor</div>
+                    <div class="box-value">Dr. Sneha Kulkarni</div>
+                </div>
+                <div class="patient-box">
+                    <div class="box-label">Department</div>
+                    <div class="box-value">Orthopedics</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="billing-zone">
+            <div class="category-banner">🛏️ Room & Accommodation</div>
+            <table class="bill-table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th style="width: 100px;">Qty</th>
+                        <th style="width: 120px;">Rate</th>
+                        <th style="width: 120px;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Shared Room (AC)</td>
+                        <td>2 days</td>
+                        <td>₹3,200/day</td>
+                        <td class="cost-col">₹6,400.00</td>
+                    </tr>
+                    <tr>
+                        <td>Nursing Services</td>
+                        <td>2 days</td>
+                        <td>₹750/day</td>
+                        <td class="cost-col">₹1,500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="category-banner">🩺 Medical Services</div>
+            <table class="bill-table">
+                <tbody>
+                    <tr>
+                        <td>Orthopedic Consultation</td>
+                        <td>3 visits</td>
+                        <td>₹900/visit</td>
+                        <td class="cost-col">₹2,700.00</td>
+                    </tr>
+                    <tr>
+                        <td>Fracture Treatment & Cast</td>
+                        <td>1</td>
+                        <td>₹8,500</td>
+                        <td class="cost-col">₹8,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Physiotherapy Sessions</td>
+                        <td>4 sessions</td>
+                        <td>₹700/session</td>
+                        <td class="cost-col">₹2,800.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="category-banner">🔬 Diagnostic Tests</div>
+            <table class="bill-table">
+                <tbody>
+                    <tr>
+                        <td>X-Ray (Multiple Views)</td>
+                        <td>3</td>
+                        <td>₹700</td>
+                        <td class="cost-col">₹2,100.00</td>
+                    </tr>
+                    <tr>
+                        <td>Blood Tests</td>
+                        <td>1</td>
+                        <td>₹1,200</td>
+                        <td class="cost-col">₹1,200.00</td>
+                    </tr>
+                    <tr>
+                        <td>ECG</td>
+                        <td>1</td>
+                        <td>₹450</td>
+                        <td class="cost-col">₹450.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="category-banner">💊 Pharmacy & Medications</div>
+            <table class="bill-table">
+                <tbody>
+                    <tr>
+                        <td>Pain Relief Medication</td>
+                        <td>2 days</td>
+                        <td>₹400/day</td>
+                        <td class="cost-col">₹800.00</td>
+                    </tr>
+                    <tr>
+                        <td>Anti-Inflammatory Drugs</td>
+                        <td>2 days</td>
+                        <td>₹350/day</td>
+                        <td class="cost-col">₹700.00</td>
+                    </tr>
+                    <tr>
+                        <td>Calcium & Vitamin Supplements</td>
+                        <td>1 set</td>
+                        <td>₹900</td>
+                        <td class="cost-col">₹900.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Consumables</td>
+                        <td>1 set</td>
+                        <td>₹1,200</td>
+                        <td class="cost-col">₹1,200.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="category-banner">📄 Administrative</div>
+            <table class="bill-table">
+                <tbody>
+                    <tr>
+                        <td>Registration Fee</td>
+                        <td>1</td>
+                        <td>₹350</td>
+                        <td class="cost-col">₹350.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Records</td>
+                        <td>1</td>
+                        <td>₹250</td>
+                        <td class="cost-col">₹250.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="summary-panel">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span>₹29,850.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>GST @ 5%:</span>
+                    <span>₹1,492.50</span>
+                </div>
+                <div class="summary-row final">
+                    <span>TOTAL PAYABLE:</span>
+                    <span>₹31,342.50</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-alert">
+            <strong>💡 Important Information:</strong><br>
+            • This invoice is valid for insurance reimbursement.<br>
+            • Payment accepted via Cash, Card, UPI, Net Banking.<br>
+            • For queries: billing@mintfreshmedical.com | +91 80 5678 9012
+        </div>
+
+        <div class="mint-footer">
+            <strong>Mint Fresh Medical Center</strong><br>
+            345 Fresh Street, Green District, Bangalore - 560001<br>
+            Phone: +91 80 5678 9012 | Emergency: 108<br>
+            Email: care@mintfreshmedical.com | www.mintfreshmedical.com<br><br>
+            Thank you for trusting Mint Fresh Medical Center!
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Bill - Ocean Blue</title>
+    <style>
+        body {
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+            background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+            margin: 0;
+            padding: 35px;
+        }
+        .invoice-page {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 15px 50px rgba(102, 166, 255, 0.4);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 3px solid #66a6ff;
+        }
+        .ocean-header {
+            background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+            padding: 50px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .wave-decoration {
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: white;
+            clip-path: polygon(0 50%, 10% 0, 20% 50%, 30% 0, 40% 50%, 50% 0, 60% 50%, 70% 0, 80% 50%, 90% 0, 100% 50%, 100% 100%, 0 100%);
+        }
+        .hospital-icon-big {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+        .hospital-name-big {
+            font-size: 38px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .hospital-slogan {
+            font-size: 16px;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+        .invoice-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .patient-details-section {
+            padding: 40px 45px;
+            background: linear-gradient(to bottom, #e6f7ff 0%, white 100%);
+        }
+        .details-title {
+            font-size: 22px;
+            color: #1e88e5;
+            font-weight: 600;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #89f7fe;
+        }
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        .detail-card {
+            background: white;
+            padding: 18px;
+            border-radius: 12px;
+            border: 2px solid #e6f7ff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        .card-title {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+        }
+        .card-info {
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+        .services-section {
+            padding: 40px 45px;
+        }
+        .service-category {
+            background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+            color: white;
+            padding: 14px 25px;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 30px 0 18px 0;
+            border-radius: 10px;
+        }
+        .services-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+        .services-table thead {
+            background: #e6f7ff;
+            border-bottom: 3px solid #1e88e5;
+        }
+        .services-table th {
+            padding: 14px;
+            text-align: left;
+            color: #1e88e5;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .services-table td {
+            padding: 14px;
+            border-bottom: 1px solid #e6f7ff;
+            font-size: 15px;
+        }
+        .services-table tbody tr:hover {
+            background: #e6f7ff;
+        }
+        .price-column {
+            text-align: right;
+            font-weight: 600;
+            color: #1e88e5;
+        }
+        .grand-summary {
+            background: linear-gradient(135deg, #e6f7ff 0%, #d4edff 100%);
+            padding: 35px;
+            border-radius: 15px;
+            margin-top: 35px;
+            border: 4px solid #66a6ff;
+        }
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            font-size: 18px;
+        }
+        .summary-line.total {
+            border-top: 4px solid #1e88e5;
+            margin-top: 18px;
+            padding-top: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #1e88e5;
+        }
+        .important-notes {
+            margin: 35px 45px;
+            padding: 25px;
+            background: #fffef0;
+            border-left: 6px solid #ffd700;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.8;
+        }
+        .ocean-footer {
+            background: linear-gradient(135deg, #1e88e5 0%, #66a6ff 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-page">
+        <div class="ocean-header">
+            <div class="hospital-icon-big">🩹</div>
+            <div class="hospital-name-big">Ocean Blue Hospital</div>
+            <div class="hospital-slogan">Waves of Care, Oceans of Healing</div>
+            <div class="invoice-badge">Invoice: OBH-2025-4321 | Date: 10-Nov-2025</div>
+            <div class="wave-decoration"></div>
+        </div>
+
+        <div class="patient-details-section">
+            <div class="details-title">Patient & Treatment Information</div>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <div class="card-title">Patient Name</div>
+                    <div class="card-info">Mrs. Deepika Menon</div>
+                </div>
+                <div class="detail-card">
+                    <div class="card-title">Patient ID</div>
+                    <div class="card-info">OBH-PT-1234</div>
+                </div>
+                <div class="detail-card">
+                    <div class="card-title">Age / Gender</div>
+                    <div class="card-info">39 Years / Female</div>
+                </div>
+                <div class="detail-card">
+                    <div class="card-title">Contact Number</div>
+                    <div class="card-info">+91 98456 12345</div>
+                </div>
+                <div class="detail-card">
+                    <div class="card-title">Admission Date & Time</div>
+                    <div class="card-info">05-Nov-2025, 02:30 PM</div>
+                </div>
+                <div class="detail-card">
+                    <div class="card-title">Discharge Date & Time</div>
+                    <div class="card-info">10-Nov-2025, 11:00 AM</div>
+                </div>
+                <div class="detail-card">
+                    <div class="card-title">Room Type</div>
+                    <div class="card-info">Single Private Room</div>
+                </div>
+                <div class="detail-card">
+                    <div class="card-title">Treating Physician</div>
+                    <div class="card-info">Dr. Arjun Nair</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="services-section">
+            <div class="service-category">🏨 Accommodation & Nursing</div>
+            <table class="services-table">
+                <thead>
+                    <tr>
+                        <th>Service Description</th>
+                        <th style="width: 110px;">Quantity</th>
+                        <th style="width: 130px;">Unit Rate</th>
+                        <th style="width: 140px;">Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Single Private Room (Sea View)</td>
+                        <td>5 days</td>
+                        <td>₹8,500/day</td>
+                        <td class="price-column">₹42,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>24/7 Nursing Care</td>
+                        <td>5 days</td>
+                        <td>₹1,800/day</td>
+                        <td class="price-column">₹9,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="service-category">🩺 Medical Consultations & Procedures</div>
+            <table class="services-table">
+                <tbody>
+                    <tr>
+                        <td>Specialist Consultation</td>
+                        <td>6 visits</td>
+                        <td>₹1,500/visit</td>
+                        <td class="price-column">₹9,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Hysterectomy Surgery</td>
+                        <td>1</td>
+                        <td>₹55,000</td>
+                        <td class="price-column">₹55,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Anesthesia Services</td>
+                        <td>1</td>
+                        <td>₹7,500</td>
+                        <td class="price-column">₹7,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Operation Theater Charges</td>
+                        <td>4 hours</td>
+                        <td>₹2,500/hour</td>
+                        <td class="price-column">₹10,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Post-Operative Care</td>
+                        <td>3 days</td>
+                        <td>₹1,200/day</td>
+                        <td class="price-column">₹3,600.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="service-category">🔬 Diagnostic & Laboratory</div>
+            <table class="services-table">
+                <tbody>
+                    <tr>
+                        <td>Pre-Operative Blood Tests (Complete Panel)</td>
+                        <td>1 set</td>
+                        <td>₹3,800</td>
+                        <td class="price-column">₹3,800.00</td>
+                    </tr>
+                    <tr>
+                        <td>Ultrasound Scan (Pelvic)</td>
+                        <td>2</td>
+                        <td>₹1,800</td>
+                        <td class="price-column">₹3,600.00</td>
+                    </tr>
+                    <tr>
+                        <td>MRI Scan</td>
+                        <td>1</td>
+                        <td>₹8,500</td>
+                        <td class="price-column">₹8,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Histopathology & Biopsy</td>
+                        <td>1</td>
+                        <td>₹4,200</td>
+                        <td class="price-column">₹4,200.00</td>
+                    </tr>
+                    <tr>
+                        <td>Post-Op Monitoring Tests</td>
+                        <td>2 sets</td>
+                        <td>₹1,500/set</td>
+                        <td class="price-column">₹3,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="service-category">💊 Pharmacy & Medical Supplies</div>
+            <table class="services-table">
+                <tbody>
+                    <tr>
+                        <td>Post-Operative Medications</td>
+                        <td>5 days</td>
+                        <td>₹1,000/day</td>
+                        <td class="price-column">₹5,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Pain Management Drugs</td>
+                        <td>5 days</td>
+                        <td>₹600/day</td>
+                        <td class="price-column">₹3,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Antibiotics (Injectable & Oral)</td>
+                        <td>5 days</td>
+                        <td>₹800/day</td>
+                        <td class="price-column">₹4,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>IV Fluids & Electrolytes</td>
+                        <td>12 units</td>
+                        <td>₹500/unit</td>
+                        <td class="price-column">₹6,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Surgical Consumables & Sutures</td>
+                        <td>1 set</td>
+                        <td>₹8,500</td>
+                        <td class="price-column">₹8,500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="service-category">📋 Administrative Charges</div>
+            <table class="services-table">
+                <tbody>
+                    <tr>
+                        <td>Registration & Admission Fee</td>
+                        <td>1</td>
+                        <td>₹1,000</td>
+                        <td class="price-column">₹1,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Records & Documentation</td>
+                        <td>1</td>
+                        <td>₹600</td>
+                        <td class="price-column">₹600.00</td>
+                    </tr>
+                    <tr>
+                        <td>Discharge Summary & Reports</td>
+                        <td>1</td>
+                        <td>₹400</td>
+                        <td class="price-column">₹400.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="grand-summary">
+                <div class="summary-line">
+                    <span>Subtotal:</span>
+                    <span>₹1,91,200.00</span>
+                </div>
+                <div class="summary-line">
+                    <span>GST @ 5%:</span>
+                    <span>₹9,560.00</span>
+                </div>
+                <div class="summary-line">
+                    <span>Health Insurance Discount (3%):</span>
+                    <span>- ₹5,736.00</span>
+                </div>
+                <div class="summary-line total">
+                    <span>NET PAYABLE AMOUNT:</span>
+                    <span>₹1,95,024.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="important-notes">
+            <strong>📌 Important Information & Terms:</strong><br>
+            • This invoice is valid for insurance claims and tax purposes.<br>
+            • Payment is due within 30 days from the date of discharge.<br>
+            • All charges are as per hospital tariff approved by regulatory authorities.<br>
+            • For billing queries or clarifications: billing@oceanbluehospital.com | +91 484 567 8901<br>
+            • Please retain this document for your records and insurance processing.
+        </div>
+
+        <div class="ocean-footer">
+            <strong>Ocean Blue Hospital</strong><br>
+            Marine Drive Complex, Coastal Road, Kochi - 682001, Kerala<br>
+            Phone: +91 484 567 8901 | Emergency: 108 | Ambulance: +91 484 567 0000<br>
+            Email: info@oceanbluehospital.com | Website: www.oceanbluehospital.com<br><br>
+            NABH Accredited | ISO 9001:2015 Certified | JCI Standards<br>
+            Thank you for choosing Ocean Blue Hospital. We wish you a speedy recovery and good health!
+        </div>
+    </div>
+</body>
+</html>
+

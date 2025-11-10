@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Invoice - Cyan Theme</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #e8f8f5;
+        }
+        .invoice {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border: 3px solid #00f2fe;
+        }
+        .header-bar {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            height: 10px;
+        }
+        .header-content {
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            border-bottom: 2px dashed #4facfe;
+        }
+        .hospital-info h1 {
+            color: #0088cc;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .hospital-info p {
+            margin: 3px 0;
+            color: #555;
+            font-size: 13px;
+        }
+        .invoice-badge {
+            background: #0088cc;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .invoice-badge h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .invoice-badge p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+        }
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 30px 40px;
+            background: #f0fbff;
+        }
+        .detail-group h3 {
+            color: #0088cc;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .detail-item {
+            display: flex;
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        .detail-label {
+            font-weight: 600;
+            color: #333;
+            min-width: 140px;
+        }
+        .detail-value {
+            color: #555;
+        }
+        .charges-section {
+            padding: 30px 40px;
+        }
+        .section-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            border-radius: 5px;
+        }
+        .charges-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .charges-table th {
+            background: #e8f8f5;
+            color: #0088cc;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #4facfe;
+        }
+        .charges-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .charges-table tr:last-child td {
+            border-bottom: none;
+        }
+        .charges-table .amount-col {
+            text-align: right;
+            font-weight: 600;
+            color: #0088cc;
+        }
+        .summary-box {
+            background: linear-gradient(135deg, #e8f8f5 0%, #d0f0fd 100%);
+            padding: 25px;
+            margin-top: 30px;
+            border-radius: 8px;
+            border: 2px solid #4facfe;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 16px;
+        }
+        .summary-row.total {
+            border-top: 3px solid #0088cc;
+            margin-top: 10px;
+            padding-top: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #0088cc;
+        }
+        .notes {
+            padding: 20px 40px;
+            background: #fffef0;
+            border-top: 2px dashed #4facfe;
+            font-size: 13px;
+            color: #666;
+        }
+        .notes h4 {
+            color: #0088cc;
+            margin-bottom: 10px;
+        }
+        .footer {
+            background: #0088cc;
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice">
+        <div class="header-bar"></div>
+        
+        <div class="header-content">
+            <div class="hospital-info">
+                <h1>💊 MediCare Plus Hospital</h1>
+                <p>📍 456 Health Avenue, Sector 21, Bangalore - 560078</p>
+                <p>📞 +91 80 9876 5432 | ✉️ info@medicareplus.in</p>
+                <p>🌐 www.medicareplushospital.com</p>
+            </div>
+            <div class="invoice-badge">
+                <h2>INVOICE</h2>
+                <p>MCP-2025-0789</p>
+                <p>Date: 10-Nov-2025</p>
+            </div>
+        </div>
+
+        <div class="details-grid">
+            <div class="detail-group">
+                <h3>Patient Information</h3>
+                <div class="detail-item">
+                    <span class="detail-label">Name:</span>
+                    <span class="detail-value">Ms. Priya Desai</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Patient ID:</span>
+                    <span class="detail-value">MCP-PT-8901</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Age/Gender:</span>
+                    <span class="detail-value">34 Years / Female</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Contact:</span>
+                    <span class="detail-value">+91 98765 43210</span>
+                </div>
+            </div>
+            <div class="detail-group">
+                <h3>Admission Details</h3>
+                <div class="detail-item">
+                    <span class="detail-label">Admission Date:</span>
+                    <span class="detail-value">06-Nov-2025, 08:45 AM</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Discharge Date:</span>
+                    <span class="detail-value">10-Nov-2025, 11:30 AM</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Room Type:</span>
+                    <span class="detail-value">Shared Room</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Treating Doctor:</span>
+                    <span class="detail-value">Dr. Suresh Patel</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="charges-section">
+            <div class="section-header">🏥 Accommodation & Room Charges</div>
+            <table class="charges-table">
+                <thead>
+                    <tr>
+                        <th>Particulars</th>
+                        <th style="width: 100px;">Quantity</th>
+                        <th style="width: 120px;">Rate</th>
+                        <th style="width: 120px;" class="amount-col">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Shared Room (General Ward)</td>
+                        <td>4 days</td>
+                        <td>₹3,200/day</td>
+                        <td class="amount-col">₹12,800.00</td>
+                    </tr>
+                    <tr>
+                        <td>Nursing Care</td>
+                        <td>4 days</td>
+                        <td>₹800/day</td>
+                        <td class="amount-col">₹3,200.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-header">🩺 Medical Services</div>
+            <table class="charges-table">
+                <tbody>
+                    <tr>
+                        <td>Doctor Consultation Fees</td>
+                        <td>6 visits</td>
+                        <td>₹700/visit</td>
+                        <td class="amount-col">₹4,200.00</td>
+                    </tr>
+                    <tr>
+                        <td>Blood Investigation (Complete Panel)</td>
+                        <td>2 sets</td>
+                        <td>₹1,800/set</td>
+                        <td class="amount-col">₹3,600.00</td>
+                    </tr>
+                    <tr>
+                        <td>Ultrasound Scan</td>
+                        <td>1</td>
+                        <td>₹1,500</td>
+                        <td class="amount-col">₹1,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>ECG</td>
+                        <td>1</td>
+                        <td>₹500</td>
+                        <td class="amount-col">₹500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Physiotherapy Sessions</td>
+                        <td>3 sessions</td>
+                        <td>₹600/session</td>
+                        <td class="amount-col">₹1,800.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-header">💊 Pharmacy & Medicines</div>
+            <table class="charges-table">
+                <tbody>
+                    <tr>
+                        <td>Antibiotics Course</td>
+                        <td>4 days</td>
+                        <td>₹400/day</td>
+                        <td class="amount-col">₹1,600.00</td>
+                    </tr>
+                    <tr>
+                        <td>Pain Relief Medication</td>
+                        <td>4 days</td>
+                        <td>₹250/day</td>
+                        <td class="amount-col">₹1,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>IV Fluids & Saline</td>
+                        <td>8 bottles</td>
+                        <td>₹350/bottle</td>
+                        <td class="amount-col">₹2,800.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Consumables</td>
+                        <td>1 set</td>
+                        <td>₹2,200</td>
+                        <td class="amount-col">₹2,200.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-header">📋 Administrative Charges</div>
+            <table class="charges-table">
+                <tbody>
+                    <tr>
+                        <td>Registration & Admission Fee</td>
+                        <td>1</td>
+                        <td>₹600</td>
+                        <td class="amount-col">₹600.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Records & Documentation</td>
+                        <td>1</td>
+                        <td>₹300</td>
+                        <td class="amount-col">₹300.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="summary-box">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span>₹36,100.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>GST @ 5%:</span>
+                    <span>₹1,805.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>NET AMOUNT PAYABLE:</span>
+                    <span>₹37,905.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="notes">
+            <h4>Important Notes:</h4>
+            <p>• Payment is due within 7 days from the date of discharge.</p>
+            <p>• Please submit this invoice to your insurance provider for reimbursement.</p>
+            <p>• For any queries regarding this bill, contact our billing department.</p>
+        </div>
+
+        <div class="footer">
+            This is a computer-generated invoice and does not require a signature.<br>
+            Thank you for choosing MediCare Plus Hospital. We wish you good health!
+        </div>
+    </div>
+</body>
+</html>
+

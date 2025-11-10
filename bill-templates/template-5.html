@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Bill - Sunset Orange</title>
+    <style>
+        body {
+            font-family: 'Trebuchet MS', sans-serif;
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
+            margin: 0;
+            padding: 30px;
+        }
+        .bill-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 40px rgba(250, 112, 154, 0.25);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .top-banner {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            padding: 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .top-banner::before {
+            content: '🌅';
+            font-size: 60px;
+            display: block;
+            margin-bottom: 15px;
+        }
+        .hospital-name-large {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .tagline {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+        .bill-meta {
+            background: rgba(255,255,255,0.25);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-around;
+            font-weight: 600;
+        }
+        .info-panel {
+            padding: 35px 40px;
+            background: linear-gradient(to bottom, #fff5e6 0%, white 100%);
+        }
+        .panel-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #d9534f;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #fa709a;
+        }
+        .info-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        .info-field {
+            margin-bottom: 15px;
+        }
+        .field-name {
+            font-size: 12px;
+            color: #d9534f;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .field-content {
+            font-size: 15px;
+            color: #333;
+            margin-top: 5px;
+        }
+        .charges-area {
+            padding: 20px 40px 40px 40px;
+        }
+        .charge-category {
+            margin-bottom: 25px;
+        }
+        .category-title {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px 8px 0 0;
+        }
+        .charge-items {
+            border: 2px solid #fa709a;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .charge-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            padding: 12px 20px;
+            border-bottom: 1px solid #ffe8cc;
+            align-items: center;
+        }
+        .charge-row:last-child {
+            border-bottom: none;
+        }
+        .charge-row:hover {
+            background: #fff5e6;
+        }
+        .charge-row.header {
+            background: #fff5e6;
+            font-weight: bold;
+            color: #d9534f;
+            font-size: 13px;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .amount-value {
+            font-weight: 600;
+            color: #d9534f;
+        }
+        .totals-box {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
+            padding: 30px;
+            margin-top: 30px;
+            border-radius: 12px;
+            border: 3px solid #fa709a;
+        }
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 17px;
+        }
+        .final-total {
+            border-top: 3px solid #fa709a;
+            margin-top: 15px;
+            padding-top: 15px;
+            font-size: 26px;
+            font-weight: bold;
+            color: #d9534f;
+        }
+        .payment-info {
+            background: #fffbf0;
+            padding: 20px;
+            margin: 30px 40px;
+            border-left: 5px solid #fee140;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+        .bottom-footer {
+            background: linear-gradient(135deg, #d9534f 0%, #fa709a 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="bill-wrapper">
+        <div class="top-banner">
+            <div class="hospital-name-large">Sunrise Healthcare</div>
+            <div class="tagline">Bringing Light to Your Health Journey</div>
+            <div class="bill-meta">
+                <div>Invoice #: SHC-2025-3456</div>
+                <div>|</div>
+                <div>Date: 10-Nov-2025</div>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <div class="panel-title">📋 Patient & Admission Information</div>
+            <div class="info-columns">
+                <div>
+                    <div class="info-field">
+                        <div class="field-name">Patient Name</div>
+                        <div class="field-content">Mrs. Sunita Kapoor</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-name">Patient ID</div>
+                        <div class="field-content">SHC-PT-9012</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-name">Age / Gender</div>
+                        <div class="field-content">56 Years / Female</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-name">Contact Number</div>
+                        <div class="field-content">+91 98765 12345</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="info-field">
+                        <div class="field-name">Admission Date & Time</div>
+                        <div class="field-content">07-Nov-2025, 07:15 AM</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-name">Discharge Date & Time</div>
+                        <div class="field-content">10-Nov-2025, 01:00 PM</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-name">Room Category</div>
+                        <div class="field-content">Shared Room (General Ward)</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-name">Treating Physician</div>
+                        <div class="field-content">Dr. Ramesh Kumar</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charges-area">
+            <div class="charge-category">
+                <div class="category-title">🏥 Accommodation Charges</div>
+                <div class="charge-items">
+                    <div class="charge-row header">
+                        <div>Description</div>
+                        <div class="text-right">Quantity</div>
+                        <div class="text-right">Rate</div>
+                        <div class="text-right">Amount</div>
+                    </div>
+                    <div class="charge-row">
+                        <div>Shared Room (General Ward)</div>
+                        <div class="text-right">3 days</div>
+                        <div class="text-right">₹3,500/day</div>
+                        <div class="text-right amount-value">₹10,500.00</div>
+                    </div>
+                    <div class="charge-row">
+                        <div>Nursing & Attendant Care</div>
+                        <div class="text-right">3 days</div>
+                        <div class="text-right">₹900/day</div>
+                        <div class="text-right amount-value">₹2,700.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charge-category">
+                <div class="category-title">🩺 Medical Services</div>
+                <div class="charge-items">
+                    <div class="charge-row header">
+                        <div>Description</div>
+                        <div class="text-right">Quantity</div>
+                        <div class="text-right">Rate</div>
+                        <div class="text-right">Amount</div>
+                    </div>
+                    <div class="charge-row">
+                        <div>Doctor Consultation</div>
+                        <div class="text-right">4 visits</div>
+                        <div class="text-right">₹750/visit</div>
+                        <div class="text-right amount-value">₹3,000.00</div>
+                    </div>
+                    <div class="charge-row">
+                        <div>Blood Tests (Comprehensive Panel)</div>
+                        <div class="text-right">1 set</div>
+                        <div class="text-right">₹2,200</div>
+                        <div class="text-right amount-value">₹2,200.00</div>
+                    </div>
+                    <div class="charge-row">
+                        <div>X-Ray (Chest PA View)</div>
+                        <div class="text-right">1</div>
+                        <div class="text-right">₹700</div>
+                        <div class="text-right amount-value">₹700.00</div>
+                    </div>
+                    <div class="charge-row">
+                        <div>ECG</div>
+                        <div class="text-right">2</div>
+                        <div class="text-right">₹500</div>
+                        <div class="text-right amount-value">₹1,000.00</div>
+                    </div>
+                    <div class="charge-row">
+                        <div>Nebulization Therapy</div>
+                        <div class="text-right">6 sessions</div>
+                        <div class="text-right">₹250/session</div>
+                        <div class="text-right amount-value">₹1,500.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charge-category">
+                <div class="category-title">💊 Pharmacy & Medications</div>
+                <div class="charge-items">
+                    <div class="charge-row header">
+                        <div>Description</div>
+                        <div class="text-right">Quantity</div>
+                        <div class="text-right">Rate</div>
+                        <div class="text-right">Amount</div>
+                    </div>
+                    <div class="charge-row">
+                        <div>Antibiotics (Oral & Injectable)</div>
+                        <div class="text-right">3 days</div>
+                        <div class="text-right">₹500/day</div>
+                        <div class="text-right amount-value">₹1,500.00</div>
+                    </div>
+                    <div class="charge-row">
+                        <div>Bronchodilators</div>
+                        <div class="text-right">3 days</div>
+                        <div class="text-right">₹350/day</div>
+                        <div class="text-right amount-value">₹1,050.00</div>
+                    </div>
+                    <div class="charge-row">
+                        <div>IV Saline & Fluids</div>
+                        <div class="text-right">6 bottles</div>
+                        <div class="text-right">₹300/bottle</div>
+                        <div class="text-right amount-value">₹1,800.00</div>
+                    </div>
+                    <div class="charge-row">
+                        <div>Medical Consumables</div>
+                        <div class="text-right">1 set</div>
+                        <div class="text-right">₹1,500</td>
+                        <div class="text-right amount-value">₹1,500.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charge-category">
+                <div class="category-title">📄 Administrative Fees</div>
+                <div class="charge-items">
+                    <div class="charge-row header">
+                        <div>Description</div>
+                        <div class="text-right">Quantity</div>
+                        <div class="text-right">Rate</div>
+                        <div class="text-right">Amount</div>
+                    </div>
+                    <div class="charge-row">
+                        <div>Registration & Admission</div>
+                        <div class="text-right">1</div>
+                        <div class="text-right">₹400</div>
+                        <div class="text-right amount-value">₹400.00</div>
+                    </div>
+                    <div class="charge-row">
+                        <div>Medical Records & Documentation</div>
+                        <div class="text-right">1</div>
+                        <div class="text-right">₹250</div>
+                        <div class="text-right amount-value">₹250.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="totals-box">
+                <div class="total-line">
+                    <span>Subtotal:</span>
+                    <span>₹28,100.00</span>
+                </div>
+                <div class="total-line">
+                    <span>GST @ 5%:</span>
+                    <span>₹1,405.00</span>
+                </div>
+                <div class="total-line final-total">
+                    <span>NET PAYABLE AMOUNT:</span>
+                    <span>₹29,505.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-info">
+            <strong>💳 Payment Information:</strong><br>
+            • Payment accepted via Cash, Card, UPI, or Net Banking<br>
+            • For insurance claims, please submit this invoice along with discharge summary<br>
+            • Queries? Contact our billing desk: +91 22 3456 7890
+        </div>
+
+        <div class="bottom-footer">
+            <strong>Sunrise Healthcare</strong><br>
+            567 Wellness Road, Health City, Pune - 411001<br>
+            Phone: +91 22 3456 7890 | Emergency: 1800-123-4567<br>
+            Email: care@sunrisehealthcare.in | www.sunrisehealthcare.in<br><br>
+            Thank you for trusting us with your health!
+        </div>
+    </div>
+</body>
+</html>
+

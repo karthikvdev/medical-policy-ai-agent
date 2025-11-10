@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic Bill - Lavender Theme</title>
+    <style>
+        body {
+            font-family: 'Century Gothic', sans-serif;
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+            margin: 0;
+            padding: 30px;
+        }
+        .invoice-container {
+            max-width: 860px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 35px rgba(210, 153, 194, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #d299c2;
+        }
+        .lavender-top {
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+            padding: 40px;
+            text-align: center;
+        }
+        .clinic-logo {
+            font-size: 56px;
+            margin-bottom: 12px;
+        }
+        .clinic-name {
+            font-size: 32px;
+            color: #8b4789;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .clinic-motto {
+            font-size: 14px;
+            color: #9b59b6;
+            margin-bottom: 20px;
+        }
+        .invoice-info-badge {
+            display: inline-block;
+            background: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-size: 15px;
+            color: #8b4789;
+            font-weight: 600;
+        }
+        .patient-details-area {
+            padding: 35px 40px;
+            background: linear-gradient(to right, #faf5ff 0%, #fffef5 100%);
+        }
+        .details-heading {
+            font-size: 19px;
+            color: #8b4789;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #d299c2;
+        }
+        .details-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        .detail-entry {
+            display: flex;
+            margin-bottom: 12px;
+        }
+        .entry-label {
+            font-weight: 600;
+            color: #9b59b6;
+            min-width: 140px;
+            font-size: 14px;
+        }
+        .entry-value {
+            color: #333;
+            font-size: 14px;
+        }
+        .charges-zone {
+            padding: 35px 40px;
+        }
+        .charge-category-header {
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+            color: #8b4789;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 20px 0 12px 0;
+            border-radius: 8px;
+        }
+        .charges-grid {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .charges-grid thead {
+            background: #faf5ff;
+            border-bottom: 2px solid #d299c2;
+        }
+        .charges-grid th {
+            padding: 12px;
+            text-align: left;
+            color: #8b4789;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .charges-grid td {
+            padding: 12px;
+            border-bottom: 1px solid #f5f0ff;
+            font-size: 14px;
+        }
+        .charges-grid tbody tr:hover {
+            background: #faf5ff;
+        }
+        .right-align {
+            text-align: right;
+            font-weight: 600;
+            color: #8b4789;
+        }
+        .total-summary {
+            background: linear-gradient(135deg, #faf5ff 0%, #fffef5 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border: 3px solid #d299c2;
+        }
+        .summary-entry {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 17px;
+        }
+        .summary-entry.final-total {
+            border-top: 3px solid #8b4789;
+            margin-top: 15px;
+            padding-top: 18px;
+            font-size: 26px;
+            font-weight: bold;
+            color: #8b4789;
+        }
+        .notes-box {
+            margin: 30px 40px;
+            padding: 20px;
+            background: #fffacd;
+            border-left: 5px solid #ffd700;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.7;
+        }
+        .lavender-footer {
+            background: linear-gradient(135deg, #8b4789 0%, #d299c2 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="lavender-top">
+            <div class="clinic-logo">📑</div>
+            <div class="clinic-name">Lavender Wellness Clinic</div>
+            <div class="clinic-motto">Holistic Care for Mind, Body & Soul</div>
+            <div class="invoice-info-badge">
+                Invoice: LWC-2025-7654 | Date: 10-Nov-2025
+            </div>
+        </div>
+
+        <div class="patient-details-area">
+            <div class="details-heading">Patient & Visit Information</div>
+            <div class="details-columns">
+                <div>
+                    <div class="detail-entry">
+                        <div class="entry-label">Patient Name:</div>
+                        <div class="entry-value">Mrs. Anjali Deshmukh</div>
+                    </div>
+                    <div class="detail-entry">
+                        <div class="entry-label">Patient ID:</div>
+                        <div class="entry-value">LWC-PT-8765</div>
+                    </div>
+                    <div class="detail-entry">
+                        <div class="entry-label">Age / Gender:</div>
+                        <div class="entry-value">44 Years / Female</div>
+                    </div>
+                    <div class="detail-entry">
+                        <div class="entry-label">Contact:</div>
+                        <div class="entry-value">+91 98234 56789</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="detail-entry">
+                        <div class="entry-label">Admission Date:</div>
+                        <div class="entry-value">08-Nov-2025, 09:00 AM</div>
+                    </div>
+                    <div class="detail-entry">
+                        <div class="entry-label">Discharge Date:</div>
+                        <div class="entry-value">10-Nov-2025, 05:00 PM</div>
+                    </div>
+                    <div class="detail-entry">
+                        <div class="entry-label">Room Type:</div>
+                        <div class="entry-value">Shared Room</div>
+                    </div>
+                    <div class="detail-entry">
+                        <div class="entry-label">Physician:</div>
+                        <div class="entry-value">Dr. Meena Patel</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charges-zone">
+            <div class="charge-category-header">🛏️ Accommodation & Care</div>
+            <table class="charges-grid">
+                <thead>
+                    <tr>
+                        <th>Service Description</th>
+                        <th style="width: 100px;">Quantity</th>
+                        <th style="width: 120px;">Rate</th>
+                        <th style="width: 120px;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Shared Room (General Ward)</td>
+                        <td>2 days</td>
+                        <td>₹2,800/day</td>
+                        <td class="right-align">₹5,600.00</td>
+                    </tr>
+                    <tr>
+                        <td>Nursing Care</td>
+                        <td>2 days</td>
+                        <td>₹600/day</td>
+                        <td class="right-align">₹1,200.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="charge-category-header">🩺 Medical Consultations</div>
+            <table class="charges-grid">
+                <tbody>
+                    <tr>
+                        <td>General Physician Consultation</td>
+                        <td>3 visits</td>
+                        <td>₹500/visit</td>
+                        <td class="right-align">₹1,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Wellness Counseling Session</td>
+                        <td>2 sessions</td>
+                        <td>₹800/session</td>
+                        <td class="right-align">₹1,600.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="charge-category-header">🔬 Diagnostic Services</div>
+            <table class="charges-grid">
+                <tbody>
+                    <tr>
+                        <td>Complete Blood Count (CBC)</td>
+                        <td>1</td>
+                        <td>₹500</td>
+                        <td class="right-align">₹500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Thyroid Function Test</td>
+                        <td>1</td>
+                        <td>₹900</td>
+                        <td class="right-align">₹900.00</td>
+                    </tr>
+                    <tr>
+                        <td>Vitamin D Test</td>
+                        <td>1</td>
+                        <td>₹1,200</td>
+                        <td class="right-align">₹1,200.00</td>
+                    </tr>
+                    <tr>
+                        <td>ECG</td>
+                        <td>1</td>
+                        <td>₹400</td>
+                        <td class="right-align">₹400.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="charge-category-header">💊 Pharmacy & Medications</div>
+            <table class="charges-grid">
+                <tbody>
+                    <tr>
+                        <td>Prescribed Medications</td>
+                        <td>2 days</td>
+                        <td>₹350/day</td>
+                        <td class="right-align">₹700.00</td>
+                    </tr>
+                    <tr>
+                        <td>Vitamin Supplements</td>
+                        <td>1 set</td>
+                        <td>₹800</td>
+                        <td class="right-align">₹800.00</td>
+                    </tr>
+                    <tr>
+                        <td>IV Therapy (Wellness)</td>
+                        <td>2 sessions</td>
+                        <td>₹600/session</td>
+                        <td class="right-align">₹1,200.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Consumables</td>
+                        <td>1 set</td>
+                        <td>₹500</td>
+                        <td class="right-align">₹500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="charge-category-header">📋 Administrative Charges</div>
+            <table class="charges-grid">
+                <tbody>
+                    <tr>
+                        <td>Registration Fee</td>
+                        <td>1</td>
+                        <td>₹300</td>
+                        <td class="right-align">₹300.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Records</td>
+                        <td>1</td>
+                        <td>₹200</td>
+                        <td class="right-align">₹200.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="total-summary">
+                <div class="summary-entry">
+                    <span>Subtotal:</span>
+                    <span>₹16,600.00</span>
+                </div>
+                <div class="summary-entry">
+                    <span>GST @ 5%:</span>
+                    <span>₹830.00</span>
+                </div>
+                <div class="summary-entry final-total">
+                    <span>TOTAL AMOUNT:</span>
+                    <span>₹17,430.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="notes-box">
+            <strong>💡 Payment & Insurance Information:</strong><br>
+            • This invoice is valid for insurance claims and tax purposes.<br>
+            • Payment can be made via Cash, Card, UPI, or Net Banking.<br>
+            • For billing queries: billing@lavenderwellness.com | +91 33 4567 8901
+        </div>
+
+        <div class="lavender-footer">
+            <strong>Lavender Wellness Clinic</strong><br>
+            234 Wellness Avenue, Health District, Kolkata - 700001<br>
+            Phone: +91 33 4567 8901 | Appointment: +91 33 4567 0000<br>
+            Email: care@lavenderwellness.com | www.lavenderwellnessclinic.com<br><br>
+            Thank you for choosing Lavender Wellness. We wish you vibrant health!
+        </div>
+    </div>
+</body>
+</html>
+

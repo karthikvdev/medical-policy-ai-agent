@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Bill - Pastel Care</title>
+    <style>
+        body {
+            font-family: 'Verdana', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #e0f7fa 100%);
+            margin: 0;
+            padding: 25px;
+        }
+        .bill-document {
+            max-width: 880px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(168, 237, 234, 0.3);
+        }
+        .pastel-header {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 45px 40px;
+            text-align: center;
+        }
+        .hospital-icon {
+            font-size: 56px;
+            margin-bottom: 15px;
+        }
+        .hospital-title {
+            font-size: 32px;
+            color: #5a5a5a;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .hospital-subtitle {
+            color: #7a7a7a;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+        .bill-badge {
+            display: inline-block;
+            background: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 10px;
+        }
+        .bill-badge strong {
+            color: #ff6b9d;
+        }
+        .patient-card {
+            margin: 30px 40px;
+            background: linear-gradient(135deg, #ffeef8 0%, #e0f7fa 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px dashed #a8edea;
+        }
+        .card-title {
+            font-size: 18px;
+            color: #ff6b9d;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .patient-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .patient-field {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .field-title {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .field-data {
+            font-size: 14px;
+            color: #333;
+            font-weight: 600;
+        }
+        .charges-container {
+            padding: 20px 40px 40px 40px;
+        }
+        .charge-group {
+            margin-bottom: 30px;
+        }
+        .group-header {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #5a5a5a;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .items-list {
+            background: #fafafa;
+            border-radius: 10px;
+            padding: 15px;
+        }
+        .item-row {
+            display: grid;
+            grid-template-columns: 2.5fr 1fr 1fr 1fr;
+            padding: 12px 10px;
+            border-bottom: 1px solid #e8e8e8;
+            align-items: center;
+        }
+        .item-row:last-child {
+            border-bottom: none;
+        }
+        .item-row.heading {
+            font-weight: 600;
+            color: #7a7a7a;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        .item-row:not(.heading):hover {
+            background: white;
+            border-radius: 8px;
+        }
+        .align-right {
+            text-align: right;
+        }
+        .price {
+            font-weight: 600;
+            color: #ff6b9d;
+        }
+        .total-card {
+            background: linear-gradient(135deg, #ffeef8 0%, #e0f7fa 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 35px;
+            border: 3px solid #a8edea;
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 16px;
+            color: #5a5a5a;
+        }
+        .total-row.final {
+            border-top: 3px solid #ff6b9d;
+            margin-top: 15px;
+            padding-top: 18px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6b9d;
+        }
+        .info-box {
+            margin: 30px 40px;
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid #ffd700;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.7;
+        }
+        .pastel-footer {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 30px;
+            text-align: center;
+            color: #5a5a5a;
+            font-size: 13px;
+            line-height: 1.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="bill-document">
+        <div class="pastel-header">
+            <div class="hospital-icon">💉</div>
+            <div class="hospital-title">Gentle Care Hospital</div>
+            <div class="hospital-subtitle">Compassionate Healthcare for All</div>
+            <div class="bill-badge">
+                <strong>Invoice:</strong> GCH-2025-4567 | <strong>Date:</strong> 10-Nov-2025
+            </div>
+        </div>
+
+        <div class="patient-card">
+            <div class="card-title">👤 Patient Information</div>
+            <div class="patient-grid">
+                <div class="patient-field">
+                    <div class="field-title">Full Name</div>
+                    <div class="field-data">Mrs. Lakshmi Iyer</div>
+                </div>
+                <div class="patient-field">
+                    <div class="field-title">Patient ID</div>
+                    <div class="field-data">GCH-PT-7890</div>
+                </div>
+                <div class="patient-field">
+                    <div class="field-title">Age / Gender</div>
+                    <div class="field-data">38 Years / Female</div>
+                </div>
+                <div class="patient-field">
+                    <div class="field-title">Admission Date</div>
+                    <div class="field-data">07-Nov-2025, 11:00 AM</div>
+                </div>
+                <div class="patient-field">
+                    <div class="field-title">Discharge Date</div>
+                    <div class="field-data">10-Nov-2025, 09:30 AM</div>
+                </div>
+                <div class="patient-field">
+                    <div class="field-title">Duration</div>
+                    <div class="field-data">3 Days</div>
+                </div>
+                <div class="patient-field">
+                    <div class="field-title">Room Type</div>
+                    <div class="field-data">Shared Room</div>
+                </div>
+                <div class="patient-field">
+                    <div class="field-title">Doctor</div>
+                    <div class="field-data">Dr. Anil Kumar</div>
+                </div>
+                <div class="patient-field">
+                    <div class="field-title">Contact</div>
+                    <div class="field-data">+91 98456 78901</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charges-container">
+            <div class="charge-group">
+                <div class="group-header">
+                    <span>🏨</span>
+                    <span>Accommodation & Nursing</span>
+                </div>
+                <div class="items-list">
+                    <div class="item-row heading">
+                        <div>Description</div>
+                        <div class="align-right">Qty</div>
+                        <div class="align-right">Rate</div>
+                        <div class="align-right">Amount</div>
+                    </div>
+                    <div class="item-row">
+                        <div>Shared Room (General Ward)</div>
+                        <div class="align-right">3 days</div>
+                        <div class="align-right">₹3,000/day</div>
+                        <div class="align-right price">₹9,000.00</div>
+                    </div>
+                    <div class="item-row">
+                        <div>Nursing Care</div>
+                        <div class="align-right">3 days</div>
+                        <div class="align-right">₹700/day</div>
+                        <div class="align-right price">₹2,100.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charge-group">
+                <div class="group-header">
+                    <span>🩺</span>
+                    <span>Medical Services</span>
+                </div>
+                <div class="items-list">
+                    <div class="item-row heading">
+                        <div>Description</div>
+                        <div class="align-right">Qty</div>
+                        <div class="align-right">Rate</div>
+                        <div class="align-right">Amount</div>
+                    </div>
+                    <div class="item-row">
+                        <div>Doctor Consultation</div>
+                        <div class="align-right">4 visits</div>
+                        <div class="align-right">₹600/visit</div>
+                        <div class="align-right price">₹2,400.00</div>
+                    </div>
+                    <div class="item-row">
+                        <div>Blood Tests (Full Panel)</div>
+                        <div class="align-right">1</div>
+                        <div class="align-right">₹1,800</div>
+                        <div class="align-right price">₹1,800.00</div>
+                    </div>
+                    <div class="item-row">
+                        <div>X-Ray</div>
+                        <div class="align-right">1</div>
+                        <div class="align-right">₹600</div>
+                        <div class="align-right price">₹600.00</div>
+                    </div>
+                    <div class="item-row">
+                        <div>ECG</div>
+                        <div class="align-right">1</div>
+                        <div class="align-right">₹450</div>
+                        <div class="align-right price">₹450.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charge-group">
+                <div class="group-header">
+                    <span>💊</span>
+                    <span>Medicines & Pharmacy</span>
+                </div>
+                <div class="items-list">
+                    <div class="item-row heading">
+                        <div>Description</div>
+                        <div class="align-right">Qty</div>
+                        <div class="align-right">Rate</div>
+                        <div class="align-right">Amount</div>
+                    </div>
+                    <div class="item-row">
+                        <div>Antibiotics</div>
+                        <div class="align-right">3 days</div>
+                        <div class="align-right">₹350/day</div>
+                        <div class="align-right price">₹1,050.00</div>
+                    </div>
+                    <div class="item-row">
+                        <div>Pain Relief Medication</div>
+                        <div class="align-right">3 days</div>
+                        <div class="align-right">₹200/day</div>
+                        <div class="align-right price">₹600.00</div>
+                    </div>
+                    <div class="item-row">
+                        <div>IV Fluids</div>
+                        <div class="align-right">5 bottles</div>
+                        <div class="align-right">₹280/bottle</div>
+                        <div class="align-right price">₹1,400.00</div>
+                    </div>
+                    <div class="item-row">
+                        <div>Medical Consumables</div>
+                        <div class="align-right">1 set</div>
+                        <div class="align-right">₹1,200</div>
+                        <div class="align-right price">₹1,200.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charge-group">
+                <div class="group-header">
+                    <span>📋</span>
+                    <span>Administrative Charges</span>
+                </div>
+                <div class="items-list">
+                    <div class="item-row heading">
+                        <div>Description</div>
+                        <div class="align-right">Qty</div>
+                        <div class="align-right">Rate</div>
+                        <div class="align-right">Amount</div>
+                    </div>
+                    <div class="item-row">
+                        <div>Registration Fee</div>
+                        <div class="align-right">1</div>
+                        <div class="align-right">₹300</div>
+                        <div class="align-right price">₹300.00</div>
+                    </div>
+                    <div class="item-row">
+                        <div>Medical Records</div>
+                        <div class="align-right">1</div>
+                        <div class="align-right">₹200</div>
+                        <div class="align-right price">₹200.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="total-card">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span>₹21,100.00</span>
+                </div>
+                <div class="total-row">
+                    <span>GST @ 5%:</span>
+                    <span>₹1,055.00</span>
+                </div>
+                <div class="total-row final">
+                    <span>TOTAL AMOUNT:</span>
+                    <span>₹22,155.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>ℹ️ Payment & Insurance Information:</strong><br>
+            • Payment can be made via Cash, Card, UPI, or Net Banking<br>
+            • For insurance claims, submit this invoice with discharge summary and medical reports<br>
+            • Contact billing department for any queries: +91 44 5678 9012
+        </div>
+
+        <div class="pastel-footer">
+            <strong>Gentle Care Hospital</strong><br>
+            890 Care Street, Medical Hub, Chennai - 600017<br>
+            Phone: +91 44 5678 9012 | Emergency: 108<br>
+            Email: care@gentlecarehospital.in | www.gentlecarehospital.in<br><br>
+            Thank you for choosing Gentle Care. We wish you good health and happiness!
+        </div>
+    </div>
+</body>
+</html>
+

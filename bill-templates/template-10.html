@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Bill - Sky Blue Theme</title>
+    <style>
+        body {
+            font-family: 'Tahoma', sans-serif;
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            margin: 0;
+            padding: 30px;
+        }
+        .bill-page {
+            max-width: 880px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 40px rgba(161, 196, 253, 0.4);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .sky-header {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            padding: 40px;
+            text-align: center;
+            color: #2c5aa0;
+        }
+        .hospital-icon-large {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+        .hospital-name-main {
+            font-size: 34px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .hospital-tagline-main {
+            font-size: 15px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        .bill-number-badge {
+            display: inline-block;
+            background: white;
+            color: #2c5aa0;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .patient-section {
+            padding: 35px 40px;
+            background: #f0f8ff;
+        }
+        .section-header {
+            font-size: 20px;
+            color: #2c5aa0;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #a1c4fd;
+        }
+        .patient-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .info-box {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #a1c4fd;
+        }
+        .info-title {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+        .info-content {
+            font-size: 15px;
+            color: #333;
+            font-weight: 600;
+        }
+        .billing-content {
+            padding: 35px 40px;
+        }
+        .category-heading {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            color: #2c5aa0;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 25px 0 15px 0;
+            border-radius: 8px;
+        }
+        .billing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .billing-table thead {
+            background: #f0f8ff;
+            border-bottom: 2px solid #a1c4fd;
+        }
+        .billing-table th {
+            padding: 12px;
+            text-align: left;
+            color: #2c5aa0;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .billing-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e8f4ff;
+            font-size: 14px;
+        }
+        .billing-table tbody tr:hover {
+            background: #f0f8ff;
+        }
+        .amt-column {
+            text-align: right;
+            font-weight: 600;
+            color: #2c5aa0;
+        }
+        .summary-box {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e8f4ff 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border: 3px solid #a1c4fd;
+        }
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 17px;
+        }
+        .summary-line.grand {
+            border-top: 3px solid #2c5aa0;
+            margin-top: 15px;
+            padding-top: 18px;
+            font-size: 26px;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+        .note-section {
+            margin: 30px 40px;
+            padding: 20px;
+            background: #fffef0;
+            border-left: 5px solid #ffd700;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.7;
+        }
+        .sky-footer {
+            background: linear-gradient(135deg, #2c5aa0 0%, #a1c4fd 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="bill-page">
+        <div class="sky-header">
+            <div class="hospital-icon-large">🏨</div>
+            <div class="hospital-name-main">Sky View Hospital</div>
+            <div class="hospital-tagline-main">Reaching New Heights in Healthcare Excellence</div>
+            <div class="bill-number-badge">Invoice: SVH-2025-3210 | Date: 10-Nov-2025</div>
+        </div>
+
+        <div class="patient-section">
+            <div class="section-header">Patient Information</div>
+            <div class="patient-info-grid">
+                <div class="info-box">
+                    <div class="info-title">Patient Name</div>
+                    <div class="info-content">Mr. Karan Malhotra</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-title">Patient ID</div>
+                    <div class="info-content">SVH-PT-4321</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-title">Age / Gender</div>
+                    <div class="info-content">36 Years / Male</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-title">Contact Number</div>
+                    <div class="info-content">+91 98123 67890</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-title">Admission Date & Time</div>
+                    <div class="info-content">07-Nov-2025, 04:30 PM</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-title">Discharge Date & Time</div>
+                    <div class="info-content">10-Nov-2025, 10:30 AM</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-title">Room Type</div>
+                    <div class="info-content">Shared Room (AC)</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-title">Treating Doctor</div>
+                    <div class="info-content">Dr. Rahul Verma</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="billing-content">
+            <div class="category-heading">🛏️ Room & Accommodation Charges</div>
+            <table class="billing-table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th style="width: 100px;">Qty</th>
+                        <th style="width: 120px;">Rate</th>
+                        <th style="width: 120px;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Shared Room (AC)</td>
+                        <td>3 days</td>
+                        <td>₹3,800/day</td>
+                        <td class="amt-column">₹11,400.00</td>
+                    </tr>
+                    <tr>
+                        <td>Nursing Services</td>
+                        <td>3 days</td>
+                        <td>₹900/day</td>
+                        <td class="amt-column">₹2,700.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="category-heading">🩺 Medical Consultations</div>
+            <table class="billing-table">
+                <tbody>
+                    <tr>
+                        <td>Doctor Consultation</td>
+                        <td>4 visits</td>
+                        <td>₹800/visit</td>
+                        <td class="amt-column">₹3,200.00</td>
+                    </tr>
+                    <tr>
+                        <td>Specialist Opinion</td>
+                        <td>1</td>
+                        <td>₹1,500</td>
+                        <td class="amt-column">₹1,500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="category-heading">🔬 Diagnostic Tests</div>
+            <table class="billing-table">
+                <tbody>
+                    <tr>
+                        <td>Complete Blood Count (CBC)</td>
+                        <td>2</td>
+                        <td>₹550</td>
+                        <td class="amt-column">₹1,100.00</td>
+                    </tr>
+                    <tr>
+                        <td>Liver Function Test</td>
+                        <td>1</td>
+                        <td>₹1,200</td>
+                        <td class="amt-column">₹1,200.00</td>
+                    </tr>
+                    <tr>
+                        <td>Ultrasound Abdomen</td>
+                        <td>1</td>
+                        <td>₹1,600</td>
+                        <td class="amt-column">₹1,600.00</td>
+                    </tr>
+                    <tr>
+                        <td>X-Ray Chest</td>
+                        <td>1</td>
+                        <td>₹700</td>
+                        <td class="amt-column">₹700.00</td>
+                    </tr>
+                    <tr>
+                        <td>ECG</td>
+                        <td>2</td>
+                        <td>₹450</td>
+                        <td class="amt-column">₹900.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="category-heading">💊 Pharmacy & Medicines</div>
+            <table class="billing-table">
+                <tbody>
+                    <tr>
+                        <td>Antibiotics (Oral & IV)</td>
+                        <td>3 days</td>
+                        <td>₹500/day</td>
+                        <td class="amt-column">₹1,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Pain Management Medication</td>
+                        <td>3 days</td>
+                        <td>₹300/day</td>
+                        <td class="amt-column">₹900.00</td>
+                    </tr>
+                    <tr>
+                        <td>IV Fluids & Saline</td>
+                        <td>6 bottles</td>
+                        <td>₹320/bottle</td>
+                        <td class="amt-column">₹1,920.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Consumables</td>
+                        <td>1 set</td>
+                        <td>₹1,800</td>
+                        <td class="amt-column">₹1,800.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="category-heading">📄 Administrative Fees</div>
+            <table class="billing-table">
+                <tbody>
+                    <tr>
+                        <td>Registration & Admission</td>
+                        <td>1</td>
+                        <td>₹500</td>
+                        <td class="amt-column">₹500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Records</td>
+                        <td>1</td>
+                        <td>₹280</td>
+                        <td class="amt-column">₹280.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="summary-box">
+                <div class="summary-line">
+                    <span>Subtotal:</span>
+                    <span>₹31,200.00</span>
+                </div>
+                <div class="summary-line">
+                    <span>GST @ 5%:</span>
+                    <span>₹1,560.00</span>
+                </div>
+                <div class="summary-line grand">
+                    <span>TOTAL PAYABLE:</span>
+                    <span>₹32,760.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="note-section">
+            <strong>📌 Important Information:</strong><br>
+            • This invoice is valid for insurance reimbursement purposes.<br>
+            • Payment is requested within 15 days of discharge.<br>
+            • For queries, contact: billing@skyviewhospital.com | +91 20 3456 7890
+        </div>
+
+        <div class="sky-footer">
+            <strong>Sky View Hospital</strong><br>
+            Plot No. 456, Sky Tower Complex, Pune - 411045<br>
+            Phone: +91 20 3456 7890 | Emergency: 108<br>
+            Email: info@skyviewhospital.com | www.skyviewhospital.com<br><br>
+            Thank you for trusting Sky View Hospital with your healthcare needs!
+        </div>
+    </div>
+</body>
+</html>
+

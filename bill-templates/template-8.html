@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Bill - Rose Medical</title>
+    <style>
+        body {
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+            background: #fff0f5;
+            margin: 0;
+            padding: 30px;
+        }
+        .document {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 8px 32px rgba(255, 154, 158, 0.25);
+            border: 1px solid #fecfef;
+        }
+        .rose-header {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 40px;
+            border-bottom: 5px solid #ff9a9e;
+        }
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+        .clinic-info h1 {
+            font-size: 30px;
+            color: #c71585;
+            margin-bottom: 10px;
+        }
+        .clinic-info p {
+            margin: 5px 0;
+            color: #8b4789;
+            font-size: 13px;
+        }
+        .invoice-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .invoice-box h2 {
+            color: #c71585;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .invoice-box p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        .details-section {
+            padding: 35px 40px;
+            background: linear-gradient(to bottom, #fff0f5 0%, white 50%);
+        }
+        .section-title {
+            font-size: 20px;
+            color: #c71585;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #fecfef;
+            font-weight: 600;
+        }
+        .details-flex {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        .details-column {
+            flex: 1;
+        }
+        .detail-row {
+            margin-bottom: 15px;
+            display: flex;
+        }
+        .detail-key {
+            font-weight: 600;
+            color: #8b4789;
+            min-width: 140px;
+            font-size: 14px;
+        }
+        .detail-val {
+            color: #333;
+            font-size: 14px;
+        }
+        .billing-area {
+            padding: 20px 40px 40px 40px;
+        }
+        .category-banner {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: white;
+            padding: 12px 25px;
+            font-size: 17px;
+            font-weight: 600;
+            margin: 25px 0 15px 0;
+            border-radius: 8px;
+        }
+        .bill-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .bill-table thead {
+            background: #fff0f5;
+            border-bottom: 2px solid #ff9a9e;
+        }
+        .bill-table th {
+            padding: 12px;
+            text-align: left;
+            color: #c71585;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .bill-table td {
+            padding: 12px;
+            border-bottom: 1px solid #fecfef;
+            font-size: 14px;
+        }
+        .bill-table tbody tr:hover {
+            background: #fff0f5;
+        }
+        .amt-col {
+            text-align: right;
+            font-weight: 600;
+            color: #c71585;
+        }
+        .summary-panel {
+            background: linear-gradient(135deg, #fff0f5 0%, #fecfef 50%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border: 2px solid #ff9a9e;
+        }
+        .sum-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+        .sum-row.total {
+            border-top: 3px solid #c71585;
+            margin-top: 15px;
+            padding-top: 18px;
+            font-size: 26px;
+            font-weight: bold;
+            color: #c71585;
+        }
+        .notes-area {
+            margin: 30px 40px;
+            padding: 20px;
+            background: #fffacd;
+            border-left: 5px solid #ffd700;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #666;
+        }
+        .footer-rose {
+            background: linear-gradient(135deg, #c71585 0%, #ff9a9e 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="document">
+        <div class="rose-header">
+            <div class="header-flex">
+                <div class="clinic-info">
+                    <h1>🏩 Rose Medical Center</h1>
+                    <p>📍 123 Rose Garden, Medical District, Jaipur - 302001</p>
+                    <p>📞 +91 141 234 5678 | ✉️ info@rosemedical.in</p>
+                    <p>🌐 www.rosemedicalcenter.com</p>
+                </div>
+                <div class="invoice-box">
+                    <h2>MEDICAL INVOICE</h2>
+                    <p><strong>Invoice #:</strong> RMC-2025-8901</p>
+                    <p><strong>Date:</strong> 10-Nov-2025</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="details-section">
+            <div class="section-title">Patient & Treatment Details</div>
+            <div class="details-flex">
+                <div class="details-column">
+                    <div class="detail-row">
+                        <div class="detail-key">Patient Name:</div>
+                        <div class="detail-val">Ms. Neha Sharma</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-key">Patient ID:</div>
+                        <div class="detail-val">RMC-PT-2345</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-key">Age / Gender:</div>
+                        <div class="detail-val">29 Years / Female</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-key">Contact:</div>
+                        <div class="detail-val">+91 98765 43210</div>
+                    </div>
+                </div>
+                <div class="details-column">
+                    <div class="detail-row">
+                        <div class="detail-key">Admission:</div>
+                        <div class="detail-val">08-Nov-2025, 10:00 AM</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-key">Discharge:</div>
+                        <div class="detail-val">10-Nov-2025, 12:00 PM</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-key">Room Type:</div>
+                        <div class="detail-val">Single Private Room</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-key">Doctor:</div>
+                        <div class="detail-val">Dr. Priya Malhotra</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="billing-area">
+            <div class="category-banner">🛏️ Room & Accommodation</div>
+            <table class="bill-table">
+                <thead>
+                    <tr>
+                        <th>Particulars</th>
+                        <th style="width: 100px;">Qty</th>
+                        <th style="width: 120px;">Rate</th>
+                        <th style="width: 120px;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Single Private Room</td>
+                        <td>2 days</td>
+                        <td>₹5,500/day</td>
+                        <td class="amt-col">₹11,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Nursing Charges</td>
+                        <td>2 days</td>
+                        <td>₹1,000/day</td>
+                        <td class="amt-col">₹2,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="category-banner">🩺 Medical Consultations & Procedures</div>
+            <table class="bill-table">
+                <tbody>
+                    <tr>
+                        <td>Gynecologist Consultation</td>
+                        <td>3 visits</td>
+                        <td>₹900/visit</td>
+                        <td class="amt-col">₹2,700.00</td>
+                    </tr>
+                    <tr>
+                        <td>Minor Surgical Procedure</td>
+                        <td>1</td>
+                        <td>₹6,000</td>
+                        <td class="amt-col">₹6,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Post-Operative Care</td>
+                        <td>2 days</td>
+                        <td>₹700/day</td>
+                        <td class="amt-col">₹1,400.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="category-banner">🔬 Diagnostic Tests</div>
+            <table class="bill-table">
+                <tbody>
+                    <tr>
+                        <td>Complete Blood Count</td>
+                        <td>1</td>
+                        <td>₹600</td>
+                        <td class="amt-col">₹600.00</td>
+                    </tr>
+                    <tr>
+                        <td>Ultrasound Scan</td>
+                        <td>1</td>
+                        <td>₹1,500</td>
+                        <td class="amt-col">₹1,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Hormone Panel Tests</td>
+                        <td>1</td>
+                        <td>₹2,800</td>
+                        <td class="amt-col">₹2,800.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="category-banner">💊 Pharmacy & Medications</div>
+            <table class="bill-table">
+                <tbody>
+                    <tr>
+                        <td>Post-Operative Medications</td>
+                        <td>2 days</td>
+                        <td>₹550/day</td>
+                        <td class="amt-col">₹1,100.00</td>
+                    </tr>
+                    <tr>
+                        <td>Pain Management Drugs</td>
+                        <td>2 days</td>
+                        <td>₹400/day</td>
+                        <td class="amt-col">₹800.00</td>
+                    </tr>
+                    <tr>
+                        <td>IV Fluids</td>
+                        <td>4 bottles</td>
+                        <td>₹350/bottle</td>
+                        <td class="amt-col">₹1,400.00</td>
+                    </tr>
+                    <tr>
+                        <td>Surgical Consumables</td>
+                        <td>1 set</td>
+                        <td>₹2,500</td>
+                        <td class="amt-col">₹2,500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="category-banner">📋 Administrative Charges</div>
+            <table class="bill-table">
+                <tbody>
+                    <tr>
+                        <td>Registration Fee</td>
+                        <td>1</td>
+                        <td>₹500</td>
+                        <td class="amt-col">₹500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Records</td>
+                        <td>1</td>
+                        <td>₹300</td>
+                        <td class="amt-col">₹300.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="summary-panel">
+                <div class="sum-row">
+                    <span>Subtotal:</span>
+                    <span>₹34,600.00</span>
+                </div>
+                <div class="sum-row">
+                    <span>GST (5%):</span>
+                    <span>₹1,730.00</span>
+                </div>
+                <div class="sum-row total">
+                    <span>TOTAL PAYABLE:</span>
+                    <span>₹36,330.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="notes-area">
+            <strong>📌 Important Notes:</strong><br>
+            • This invoice is valid for insurance claims and reimbursement.<br>
+            • Payment due within 10 days of discharge.<br>
+            • For queries, contact billing@rosemedical.in or call +91 141 234 5678
+        </div>
+
+        <div class="footer-rose">
+            <strong>Rose Medical Center</strong><br>
+            123 Rose Garden, Medical District, Jaipur - 302001<br>
+            Phone: +91 141 234 5678 | Emergency: 102<br>
+            Email: info@rosemedical.in | www.rosemedicalcenter.com<br><br>
+            Thank you for choosing Rose Medical Center. Wishing you good health!
+        </div>
+    </div>
+</body>
+</html>
+

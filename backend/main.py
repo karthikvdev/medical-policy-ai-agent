@@ -10,6 +10,7 @@ load_dotenv()  # Loads values from .env into environment variables
 
 
 from PIL import Image
+from datetime import datetime
 
 # PDF rendering (optional)
 try:
@@ -230,6 +231,18 @@ You are a Health Insurance Claim Assistant.
 INPUTS YOU ALWAYS USE
 - POLICY (JSON): {policy_ctx}
 - BILL TEXT (raw text): {bill_text}
+- CURRENT_DATETIME (ISO): provided below as current server date/time
+
+ROOM TYPE HIERARCHY AND NORMALIZATION (internal)
+- Types (lowest → highest): shared < single_private < any_room.
+- Normalize billed room from BILL TEXT:
+  - If text mentions "shared", "general ward", "general", "ward" → shared
+  - If text mentions "single", "private", "single room", "private room" → single_private
+  - Else → Not available
+- Eligible room type = POLICY.room.type (shared/single_private/any_room).
+- Status "over limit" if EITHER:
+  (a) billed_rate_per_day > cap_per_day, OR
+  (b) billed_room_type outranks eligible_room_type per hierarchy above.
 
 GREETING
 - Detect the patient name from BILL TEXT (look for “Patient Name”, “Name”, or “Mr/Ms …”).
@@ -251,21 +264,52 @@ Notes:
 - “Extra you pay for room” = max(0, billed_rate_per_day − cap_per_day) × days (use only if both numbers exist; otherwise “Not available”).
 - Do NOT print reduction factors or any long explanation.
 
-B) MONEY QUESTIONS
-(coverage, how much I pay, insurance pays, payable, estimate, breakdown)
-Return EXACTLY this structure (no run-ons, Markdown list):
-
-1. Insurance pays: ₹<InsurerPays>
-2. You pay: ₹<PatientPays> which includes
-3. Breakdown:
-   - Total bill: ₹<TotalBill>
-   - Non-payables: ₹<NonPayables>, it includes insurance company won’t pay for which mentioned in policy
-   - Room charges: ₹<RoomTotal> (within cap | over limit)
-   - Co-pay (<CoPayPct>%): ₹<CoPayAmount> and add the Non Payables if any
-   - Up to 3 other important items as “- Label: ₹Amount”
+B) CLAIM TIMELINE QUESTIONS
+(Triggers when the user asks when the claim will complete/approval time/TAT/turnaround/timeframe.)
+Return a SINGLE short sentence with the expected completion:
+- Find discharge date (and time if present) from BILL TEXT (look for “Discharge Date”, “Discharge”, “Discharge Time”). If time is missing, assume 09:00.
+- Extract the number of days from POLICY.approval_time (ignore words like “business”).
+- Compute expected completion = discharge date/time + approval_days (calendar days).
+- If expected completion is in the future relative to CURRENT_DATETIME, return the remaining time as hours rounded to the nearest hour, e.g., “Insurance can be processed in 8 hours.”
+- Otherwise return the exact date/time, e.g., “Expected claim completion date: 12 Jan 2025.”
+- If discharge date/time or approval_days cannot be determined, reply: “Expected claim completion date: Not available.”
 
 C) OTHER QUESTIONS
 - Answer briefly in up to 3 bullets or 2 short sentences.
+
+COMPUTATION LOGIC (internal; do NOT print explanations)
+- Parse from BILL TEXT where possible:
+  - days, billed_room_type, billed_rate_per_day, room_total
+  - totals for obvious fixed items: medicines/pharmacy/drugs, implants/stents/prosthesis/devices, consumables
+  - other hospital charges (doctor visit/consultation, nursing, service/maintenance, procedures, investigations, OT charges, etc.)
+- Eligible cap_per_day = POLICY.room.cap_per_day if available.
+- Proportionate deduction applies only if:
+  POLICY.room.proportionate_deduction is true AND Status is "over limit".
+- If proportionate deduction applies, compute ratio r = min(1, cap_per_day / billed_rate_per_day) using available numbers. If unavailable, do not apply ratio.
+- Payables:
+  - Room rent payable = min(billed_rate_per_day, cap_per_day) × days (when numbers exist).
+  - Fixed items payable in full (subject to co-pay and non-payables): medicines, implants/devices, consumables.
+  - Other room-linked charges payable = r × (sum of other room-linked charges) when r exists; otherwise use full amounts.
+  - Non-payables are not paid.
+- Order of calculation:
+  1) Compute totals for: room_total, fixed_items_total, other_room_linked_total.
+  2) Apply proportionate ratio r to other_room_linked_total when it applies.
+  3) InsurerPays_pre_copay = room_rent_payable + fixed_items_payable + other_room_linked_payable.
+  4) Apply any co-pay from POLICY (if present): insurer pays = InsurerPays_pre_copay × (1 − co_pay_pct/100).
+  5) Apply sum insured cap if present: insurer pays = min(insurer pays, sum_insured).
+  6) PatientPays = TotalBill − insurer pays.
+  7) PatientPays must also include the “Extra you pay for room” and all Non-payables.
+
+- Claim timeline:
+  - approval_days = integer parsed from POLICY.approval_time (e.g., “2 business days” → 2).
+  - discharge_dt = parsed from BILL TEXT; if only a date is present, set time to 09:00.
+  - completion_dt = discharge_dt + approval_days calendar days.
+  - now_dt = parsed from CURRENT_DATETIME.
+  - if completion_dt > now_dt → hours_remaining = round((completion_dt − now_dt) in hours).
+  - Output selection:
+    - if completion_dt > now_dt → output “Insurance can be processed in <hours_remaining> hours.”
+    - else → output “Expected claim completion date: <DD Mon YYYY>.”
+  - Do not print intermediate calculations or assumptions.
 
 RULES (strict)
 - If the user asks for a single value only (e.g., “What is my total bill amount?”, “What is the copay %?”, “What is the sum insured?”), reply with a SINGLE short sentence that states the value, e.g., “Your total bill is ₹12,345.00.” or “Your copay is 10%.” Do NOT include extra lines or additional details.
@@ -287,7 +331,7 @@ def build_clients():
 
 
 def chat_with_history(chat_client, history, policy, bill_text, user_input):
-    system_msg = SYSTEM_PROMPT + f"\n\nPOLICY:\n{json.dumps(policy)}\n\nBILL:\n{bill_text}\n"
+    system_msg = SYSTEM_PROMPT + f"\n\nPOLICY:\n{json.dumps(policy)}\n\nBILL:\n{bill_text}\n\nCURRENT_DATETIME:\n{datetime.now().isoformat()}\n"
 
     if not history or history[0]["role"] != "system":
         history.insert(0, {"role": "system", "content": system_msg})
