@@ -12,4 +12,4 @@ elsai-model==1.2.1
 
 # elsAI Text Extractors
 --extra-index-url https://elsai-core-package.optisolbusiness.com/root/elsai-text-extractors/
-elsai-text-extractors==0.1.0
+elsai-text-extractors==0.1.1
