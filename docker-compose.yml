@@ -1,5 +1,22 @@
 version: "3.9"
 services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: hospital_user
+      POSTGRES_PASSWORD: hospital_pass
+      POSTGRES_DB: hospital_bill
+    ports:
+      - "${POSTGRES_PORT:-5435}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hospital_user -d hospital_bill"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   api:
     build:
       context: .
@@ -14,11 +31,15 @@ services:
       OPENAI_TEMPERATURE: ${OPENAI_TEMPERATURE:-0.1}
       HOST: 0.0.0.0
       PORT: ${BACKEND_PORT:-8080}
+      DATABASE_URL: postgresql+asyncpg://hospital_user:hospital_pass@db:5432/hospital_bill
     command: sh -c "uvicorn backend.api:app --host 0.0.0.0 --port ${PORT:-8080} --reload --reload-dir backend"
     restart: unless-stopped
     volumes:
       - ./backend:/app/backend
       - ./policy.json:/app/policy.json:ro
+    depends_on:
+      db:
+        condition: service_healthy
   frontend:
     build:
       context: .
@@ -39,4 +60,7 @@ services:
     depends_on:
       - api
     restart: unless-stopped
+
+volumes:
+  postgres_data:
 

@@ -3,16 +3,18 @@ import { useState, useEffect, useRef } from 'react';
 import { Send, Bot, User } from 'lucide-react';
 
 interface ChatbotProps {
-  documentId: string | null;
-  selectedPlan: any | null;
-  billText: string;
-  policy: any;
+  conversationId: number | null;
+  onConversationsUpdate?: () => void;
 }
 
-type Role = 'user' | 'assistant' | 'system';
-interface Message { role: Role; content: string; }
+interface Message {
+  id: number;
+  role: string;
+  content: string;
+  created_at: string;
+}
 
-export default function Chatbot({ documentId, selectedPlan, billText, policy }: ChatbotProps) {
+export default function Chatbot({ conversationId, onConversationsUpdate }: ChatbotProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -25,12 +27,12 @@ export default function Chatbot({ documentId, selectedPlan, billText, policy }: 
   ];
 
   useEffect(() => {
-    if (documentId) {
+    if (conversationId) {
       fetchMessages();
     } else {
       setMessages([]);
     }
-  }, [documentId]);
+  }, [conversationId]);
 
   useEffect(() => {
     scrollToBottom();
@@ -41,30 +43,22 @@ export default function Chatbot({ documentId, selectedPlan, billText, policy }: 
   };
 
   const fetchMessages = async () => {
-    // no-op: conversation is stored locally in state
-    setMessages([]);
-  };
-
-  const callBackendChat = async (userMessage: string): Promise<string> => {
-    const base = import.meta.env.VITE_API_URL as string;
-    const payload = {
-      history: messages.map(m => ({ role: m.role, content: m.content })),
-      policy: policy || {},
-      bill_text: billText || '',
-      user_input: userMessage,
-    };
-    const resp = await fetch(`${base}/chat`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!resp.ok) throw new Error('Chat API failed');
-    const j = await resp.json();
-    return j.reply as string;
+    if (!conversationId) return;
+    
+    try {
+      const base = import.meta.env.VITE_API_URL as string;
+      const resp = await fetch(`${base}/conversations/${conversationId}`);
+      if (!resp.ok) throw new Error('Failed to fetch messages');
+      
+      const data = await resp.json();
+      setMessages(data.messages || []);
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+    }
   };
 
   const sendMessage = async (text: string) => {
-    if (!text.trim() || !documentId || !selectedPlan) return;
+    if (!text.trim() || !conversationId) return;
 
     const userMessage = text.trim();
     if (userMessage === inputMessage.trim()) {
@@ -73,10 +67,25 @@ export default function Chatbot({ documentId, selectedPlan, billText, policy }: 
     setIsLoading(true);
 
     try {
-      // append user locally
-      setMessages((prev) => [...prev, { role: 'user', content: userMessage }]);
-      const reply = await callBackendChat(userMessage);
-      setMessages((prev) => [...prev, { role: 'assistant', content: reply }]);
+      const base = import.meta.env.VITE_API_URL as string;
+      const resp = await fetch(`${base}/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          conversation_id: conversationId,
+          user_input: userMessage,
+        }),
+      });
+      
+      if (!resp.ok) throw new Error('Chat API failed');
+      
+      const data = await resp.json();
+      setMessages(data.messages || []);
+      
+      // Notify parent to update conversation list
+      if (onConversationsUpdate) {
+        onConversationsUpdate();
+      }
     } catch (error) {
       console.error('Error sending message:', error);
     } finally {
@@ -96,7 +105,7 @@ export default function Chatbot({ documentId, selectedPlan, billText, policy }: 
     }
   };
 
-  if (!documentId) {
+  if (!conversationId) {
     return (
       <div className="bg-white rounded-lg shadow-md p-8 flex items-center justify-center h-[600px]">
         <div className="text-center text-gray-500">
@@ -129,7 +138,7 @@ export default function Chatbot({ documentId, selectedPlan, billText, policy }: 
                   key={m}
                   type="button"
                   onClick={() => sendMessage(m)}
-                  disabled={isLoading || !documentId || !selectedPlan}
+                  disabled={isLoading || !conversationId}
                   className="w-full p-3 bg-gray-50 rounded-lg text-left hover:bg-gray-100 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {m}
