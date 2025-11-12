@@ -6,6 +6,11 @@ fastapi>=0.110.0
 uvicorn[standard]>=0.23.0
 pydantic>=2.5.0
 
+# Database
+sqlalchemy>=2.0.0
+asyncpg>=0.29.0
+alembic>=1.13.0
+
 # elsAI Core (model)
 --extra-index-url https://elsai-core-package.optisolbusiness.com/root/elsai-model/
 elsai-model==1.2.1

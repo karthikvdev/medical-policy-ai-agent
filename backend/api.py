@@ -1,8 +1,11 @@
 from typing import Any, Dict, List, Optional, Tuple
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
+from sqlalchemy import select, desc
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from .main import (
     get_policy,
@@ -17,6 +20,8 @@ from .main import (
     parse_total_amount,
     sum_non_payables,
 )
+from .database import get_db, init_db, close_db
+from .models import Conversation, Message
 
 
 app = FastAPI(
@@ -33,6 +38,7 @@ app = FastAPI(
         {"name": "Policy", "description": "Policy and plan discovery APIs."},
         {"name": "OCR", "description": "OCR for images and PDFs."},
         {"name": "Extractors", "description": "Structured extractors for CSV and DOCX."},
+        {"name": "Conversations", "description": "Conversation and chat history management."},
         {"name": "Chat", "description": "LLM chat with policy and bill context."},
         {"name": "Utilities", "description": "Helpers for parsing totals and non-payables."},
     ],
@@ -47,6 +53,18 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+async def startup_event():
+    """Initialize database on startup."""
+    await init_db()
+
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    """Close database connections on shutdown."""
+    await close_db()
 
 
 # Clients and policy cache are handled in main.py
@@ -185,23 +203,172 @@ def extract_docx(req: DocxExtractRequest) -> DocxExtractResponse:
         raise HTTPException(status_code=500, detail=f"DOCX extraction failed: {e}")
 
 
+# ========== Conversation Management ==========
+
+class CreateConversationRequest(BaseModel):
+    insurer: str
+    plan: str
+    bill_text: Optional[str] = None
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "insurer": "HDFC",
+                    "plan": "SILVER",
+                    "bill_text": "Total: 350000\nRoom: Private"
+                }
+            ]
+        }
+    }
+
+
+class ConversationResponse(BaseModel):
+    id: int
+    insurer: str
+    plan: str
+    bill_text: Optional[str]
+    created_at: str
+    updated_at: str
+
+
+class MessageResponse(BaseModel):
+    id: int
+    role: str
+    content: str
+    created_at: str
+
+
+class ConversationDetailResponse(BaseModel):
+    id: int
+    insurer: str
+    plan: str
+    bill_text: Optional[str]
+    created_at: str
+    updated_at: str
+    messages: List[MessageResponse]
+
+
+@app.post("/conversations", response_model=ConversationResponse, tags=["Conversations"])
+async def create_conversation(
+    req: CreateConversationRequest,
+    db: AsyncSession = Depends(get_db)
+) -> ConversationResponse:
+    """Create a new conversation."""
+    conversation = Conversation(
+        insurer=req.insurer,
+        plan=req.plan,
+        bill_text=req.bill_text
+    )
+    db.add(conversation)
+    await db.flush()
+    await db.refresh(conversation)
+    
+    return ConversationResponse(
+        id=conversation.id,
+        insurer=conversation.insurer,
+        plan=conversation.plan,
+        bill_text=conversation.bill_text,
+        created_at=conversation.created_at.isoformat(),
+        updated_at=conversation.updated_at.isoformat()
+    )
+
+
+@app.get("/conversations", response_model=List[ConversationResponse], tags=["Conversations"])
+async def list_conversations(
+    db: AsyncSession = Depends(get_db),
+    limit: int = 50,
+    offset: int = 0
+) -> List[ConversationResponse]:
+    """List all conversations."""
+    result = await db.execute(
+        select(Conversation)
+        .order_by(desc(Conversation.updated_at))
+        .limit(limit)
+        .offset(offset)
+    )
+    conversations = result.scalars().all()
+    
+    return [
+        ConversationResponse(
+            id=conv.id,
+            insurer=conv.insurer,
+            plan=conv.plan,
+            bill_text=conv.bill_text,
+            created_at=conv.created_at.isoformat(),
+            updated_at=conv.updated_at.isoformat()
+        )
+        for conv in conversations
+    ]
+
+
+@app.get("/conversations/{conversation_id}", response_model=ConversationDetailResponse, tags=["Conversations"])
+async def get_conversation(
+    conversation_id: int,
+    db: AsyncSession = Depends(get_db)
+) -> ConversationDetailResponse:
+    """Get a specific conversation with its messages."""
+    result = await db.execute(
+        select(Conversation)
+        .where(Conversation.id == conversation_id)
+        .options(selectinload(Conversation.messages))
+    )
+    conversation = result.scalar_one_or_none()
+    
+    if not conversation:
+        raise HTTPException(status_code=404, detail="Conversation not found")
+    
+    return ConversationDetailResponse(
+        id=conversation.id,
+        insurer=conversation.insurer,
+        plan=conversation.plan,
+        bill_text=conversation.bill_text,
+        created_at=conversation.created_at.isoformat(),
+        updated_at=conversation.updated_at.isoformat(),
+        messages=[
+            MessageResponse(
+                id=msg.id,
+                role=msg.role,
+                content=msg.content,
+                created_at=msg.created_at.isoformat()
+            )
+            for msg in sorted(conversation.messages, key=lambda m: m.created_at)
+        ]
+    )
+
+
+@app.delete("/conversations/{conversation_id}", tags=["Conversations"])
+async def delete_conversation(
+    conversation_id: int,
+    db: AsyncSession = Depends(get_db)
+) -> Dict[str, str]:
+    """Delete a conversation and all its messages."""
+    result = await db.execute(
+        select(Conversation).where(Conversation.id == conversation_id)
+    )
+    conversation = result.scalar_one_or_none()
+    
+    if not conversation:
+        raise HTTPException(status_code=404, detail="Conversation not found")
+    
+    await db.delete(conversation)
+    return {"status": "success", "message": "Conversation deleted"}
+
+
+# ========== Chat ==========
+
 class ChatMessage(BaseModel):
     role: str
     content: str
 
 
 class ChatRequest(BaseModel):
-    history: List[ChatMessage] = Field(default_factory=list)
-    policy: Dict[str, Any]
-    bill_text: str
+    conversation_id: int
     user_input: str
     model_config = {
         "json_schema_extra": {
             "examples": [
                 {
-                    "history": [{"role": "system", "content": "You are helpful."}],
-                    "policy": {"HDFC": {"SILVER": {"sum_insured": 300000}}},
-                    "bill_text": "Total: 350000\nRoom: Private",
+                    "conversation_id": 1,
                     "user_input": "What will insurance pay?",
                 }
             ]
@@ -211,17 +378,94 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     reply: str
-    history: List[ChatMessage]
+    conversation_id: int
+    messages: List[MessageResponse]
 
 
 @app.post("/chat", response_model=ChatResponse, tags=["Chat"])
-def chat(req: ChatRequest) -> ChatResponse:
-    history_dicts = [m.model_dump() for m in req.history]
+async def chat(
+    req: ChatRequest,
+    db: AsyncSession = Depends(get_db)
+) -> ChatResponse:
+    """Send a message in a conversation and get a response."""
+    # Get conversation
+    result = await db.execute(
+        select(Conversation)
+        .where(Conversation.id == req.conversation_id)
+        .options(selectinload(Conversation.messages))
+    )
+    conversation = result.scalar_one_or_none()
+    
+    if not conversation:
+        raise HTTPException(status_code=404, detail="Conversation not found")
+    
+    # Get policy
+    policy_data = get_policy()
+    if conversation.insurer not in policy_data:
+        raise HTTPException(status_code=400, detail=f"Unknown insurer '{conversation.insurer}'")
+    if conversation.plan not in policy_data[conversation.insurer]:
+        raise HTTPException(status_code=400, detail=f"Unknown plan '{conversation.plan}'")
+    
+    policy = policy_data[conversation.insurer][conversation.plan]
+    
+    # Build history from existing messages
+    history_dicts = [
+        {"role": msg.role, "content": msg.content}
+        for msg in sorted(conversation.messages, key=lambda m: m.created_at)
+    ]
+    
+    # Get response
     chat_client, _ = get_clients()
-    reply = chat_with_history(chat_client, history_dicts, req.policy, req.bill_text, req.user_input)
-    # history_dicts mutated in-place by chat_with_history; convert back
-    history_models = [ChatMessage(**m) for m in history_dicts]
-    return ChatResponse(reply=reply, history=history_models)
+    reply = chat_with_history(
+        chat_client,
+        history_dicts,
+        policy,
+        conversation.bill_text or "",
+        req.user_input
+    )
+    
+    # Save user message and assistant reply
+    user_message = Message(
+        conversation_id=conversation.id,
+        role="user",
+        content=req.user_input
+    )
+    assistant_message = Message(
+        conversation_id=conversation.id,
+        role="assistant",
+        content=reply
+    )
+    
+    db.add(user_message)
+    db.add(assistant_message)
+    await db.flush()
+    await db.refresh(user_message)
+    await db.refresh(assistant_message)
+    
+    # Update conversation timestamp
+    conversation.updated_at = assistant_message.created_at
+    
+    # Get all messages for response
+    result = await db.execute(
+        select(Message)
+        .where(Message.conversation_id == conversation.id)
+        .order_by(Message.created_at)
+    )
+    all_messages = result.scalars().all()
+    
+    return ChatResponse(
+        reply=reply,
+        conversation_id=conversation.id,
+        messages=[
+            MessageResponse(
+                id=msg.id,
+                role=msg.role,
+                content=msg.content,
+                created_at=msg.created_at.isoformat()
+            )
+            for msg in all_messages
+        ]
+    )
 
 
 class ParseTotalRequest(BaseModel):
