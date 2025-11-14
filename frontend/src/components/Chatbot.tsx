@@ -64,6 +64,7 @@ export default function Chatbot({ conversationId, onConversationsUpdate }: Chatb
     if (userMessage === inputMessage.trim()) {
       setInputMessage('');
     }
+    setMessages((messages) => ([...messages, { id: Math.random(), content: userMessage, role: 'user', created_at: Date?.now() } as unknown as Message]))
     setIsLoading(true);
 
     try {
