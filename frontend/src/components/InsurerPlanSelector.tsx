@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import apiService from '../services/base.service';
+import { Building2, Shield } from 'lucide-react';
+
 type InsurerOption = { id: string; name: string };
 type PlanOption = { id: string; name: string };
-import { Building2, Shield } from 'lucide-react';
 
 interface InsurerPlanSelectorProps {
   selectedInsurer: string | null;
@@ -31,14 +33,12 @@ export default function InsurerPlanSelector({
       setPlans([]);
       onPlanChange('');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedInsurer]);
 
   const fetchInsurers = async () => {
     try {
-      const base = import.meta.env.VITE_API_URL as string;
-      const resp = await fetch(`${base}/insurers`);
-      if (!resp.ok) throw new Error(`Failed to load insurers (${resp.status})`);
-      const data = await resp.json() as string[];
+      const data = await apiService.getInsurers();
       const options: InsurerOption[] = data.map((name) => ({ id: name, name: name.replace(/_/g, ' ') }));
       setInsurers(options);
     } catch (error) {
@@ -50,10 +50,7 @@ export default function InsurerPlanSelector({
 
   const fetchPlans = async (insurerId: string) => {
     try {
-      const base = import.meta.env.VITE_API_URL as string;
-      const resp = await fetch(`${base}/plans?insurer=${encodeURIComponent(insurerId)}`);
-      if (!resp.ok) throw new Error(`Failed to load plans (${resp.status})`);
-      const data = await resp.json() as string[];
+      const data = await apiService.getPlansByInsurer(insurerId);
       const options: PlanOption[] = data.map((name) => ({ id: name, name }));
       setPlans(options);
     } catch (error) {

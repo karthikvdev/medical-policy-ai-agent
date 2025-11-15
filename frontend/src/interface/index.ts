@@ -35,3 +35,36 @@ export interface Insurer {
     created_at: string;
   }
   
+
+// Response Types
+export interface Conversation {
+  id: number;
+  insurer: string;
+  plan: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Message {
+  id: number;
+  role: string;
+  content: string;
+  created_at: string;
+}
+
+export interface ConversationWithMessages {
+  id: number;
+  insurer: string;
+  plan: string;
+  created_at: string;
+  updated_at: string;
+  messages: Message[];
+}
+
+export interface ChatResponse {
+  messages: Message[];
+}
+
+export interface OCRResponse {
+  text: string;
+}

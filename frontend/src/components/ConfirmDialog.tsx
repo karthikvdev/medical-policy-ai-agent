@@ -32,26 +32,24 @@ export default function ConfirmDialog({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-black bg-opacity-50"
         onClick={onCancel}
       />
-      
+
       {/* Dialog */}
       <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 animate-in fade-in zoom-in duration-200">
         <div className="flex items-start space-x-4">
-          <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
-            variant === 'danger' ? 'bg-red-100' : 
-            variant === 'warning' ? 'bg-yellow-100' : 
-            'bg-blue-100'
-          }`}>
-            <AlertTriangle className={`w-6 h-6 ${
-              variant === 'danger' ? 'text-red-600' : 
-              variant === 'warning' ? 'text-yellow-600' : 
-              'text-blue-600'
-            }`} />
+          <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${variant === 'danger' ? 'bg-red-100' :
+              variant === 'warning' ? 'bg-yellow-100' :
+                'bg-blue-100'
+            }`}>
+            <AlertTriangle className={`w-6 h-6 ${variant === 'danger' ? 'text-red-600' :
+                variant === 'warning' ? 'text-yellow-600' :
+                  'text-blue-600'
+              }`} />
           </div>
-          
+
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
               {title}
@@ -61,7 +59,7 @@ export default function ConfirmDialog({
             </p>
           </div>
         </div>
-        
+
         <div className="flex justify-end space-x-3 mt-6">
           <button
             onClick={onCancel}

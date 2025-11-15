@@ -1,17 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Send, Bot, User } from 'lucide-react';
+import apiService from '../services/base.service';
+import type { Message } from '../interface';
 
 interface ChatbotProps {
   conversationId: number | null;
   onConversationsUpdate?: () => void;
-}
-
-interface Message {
-  id: number;
-  role: string;
-  content: string;
-  created_at: string;
 }
 
 export default function Chatbot({ conversationId, onConversationsUpdate }: ChatbotProps) {
@@ -26,13 +20,23 @@ export default function Chatbot({ conversationId, onConversationsUpdate }: Chatb
     "What services are covered?",
   ];
 
+  const fetchMessages = useCallback(async () => {
+    if (!conversationId) return;
+    try {
+      const data = await apiService.getConversationById(conversationId);
+      setMessages(data.messages || []);
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+    }
+  }, [conversationId]);
+
   useEffect(() => {
     if (conversationId) {
       fetchMessages();
     } else {
       setMessages([]);
     }
-  }, [conversationId]);
+  }, [conversationId, fetchMessages]);
 
   useEffect(() => {
     scrollToBottom();
@@ -40,21 +44,6 @@ export default function Chatbot({ conversationId, onConversationsUpdate }: Chatb
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const fetchMessages = async () => {
-    if (!conversationId) return;
-    
-    try {
-      const base = import.meta.env.VITE_API_URL as string;
-      const resp = await fetch(`${base}/conversations/${conversationId}`);
-      if (!resp.ok) throw new Error('Failed to fetch messages');
-      
-      const data = await resp.json();
-      setMessages(data.messages || []);
-    } catch (error) {
-      console.error('Error fetching messages:', error);
-    }
   };
 
   const sendMessage = async (text: string) => {
@@ -68,21 +57,13 @@ export default function Chatbot({ conversationId, onConversationsUpdate }: Chatb
     setIsLoading(true);
 
     try {
-      const base = import.meta.env.VITE_API_URL as string;
-      const resp = await fetch(`${base}/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          conversation_id: conversationId,
-          user_input: userMessage,
-        }),
+      const data = await apiService.sendChatMessage({
+        conversation_id: conversationId,
+        user_input: userMessage,
       });
-      
-      if (!resp.ok) throw new Error('Chat API failed');
-      
-      const data = await resp.json();
+
       setMessages(data.messages || []);
-      
+
       // Notify parent to update conversation list
       if (onConversationsUpdate) {
         onConversationsUpdate();
