@@ -14,10 +14,10 @@ export default function Chatbot({ conversationId, onConversationsUpdate }: Chatb
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const defaultMessages = [
-    "What is my coverage percentage?",
     "When will my claim be processed?",
     "What is my deductible amount?",
-    "What services are covered?",
+    "How much the insurer will cover?",
+    "What is my claim status?",
   ];
 
   const fetchMessages = useCallback(async () => {

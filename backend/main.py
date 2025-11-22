@@ -21,6 +21,7 @@ except:
 
 from elsai_model.openai import OpenAIConnector
 from .prompts import SYSTEM_PROMPT
+from elsai_ocr_extractors.visionai_extractor import VisionAIExtractor
 
 # Optional elsAI extractors
 try:
@@ -137,7 +138,6 @@ def ocr_image_from_inputs(image_data_url: Optional[str], image_base64: Optional[
 
 def ocr_pdf_from_base64(pdf_base64: str) -> str:
     _, vision = get_clients()
-    print("elsai text")
     try:
         raw = pdf_base64.split(",", 1)[1] if "base64," in pdf_base64 else pdf_base64
         pdf_bytes = base64.b64decode(raw)
@@ -153,7 +153,6 @@ def ocr_pdf_from_base64(pdf_base64: str) -> str:
                 text = extractor.extract_text_from_pdf()
                 if isinstance(text, (list, tuple)):
                     text = "\n\n".join([str(t) for t in text])
-                    print("elsai text",text)
                 text = str(text or "").strip()
                 if text:
                     return text
@@ -238,8 +237,9 @@ def build_clients():
     return chat, vision
 
 
-def chat_with_history(chat_client, history, policy, bill_text, user_input):
-    system_msg = SYSTEM_PROMPT + f"\n\nPOLICY:\n{json.dumps(policy)}\n\nBILL:\n{bill_text}\n\nCURRENT_DATETIME:\n{datetime.now().isoformat()}\n"
+
+def chat_with_history(chat_client, history, policy, bill_text, policy_status, user_input):
+    system_msg = SYSTEM_PROMPT + f"\n\nPOLICY:\n{json.dumps(policy)}\n\nBILL:\n{bill_text}\n\nCURRENT_DATETIME:\n{datetime.now().isoformat()}\n\nCLAIM_STATUS:\n{policy_status}\n"
 
     if not history or history[0]["role"] != "system":
         history.insert(0, {"role": "system", "content": system_msg})

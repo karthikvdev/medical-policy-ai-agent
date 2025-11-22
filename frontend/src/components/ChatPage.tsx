@@ -69,7 +69,7 @@ export default function ChatPage() {
 
     return (
         <>
-            <ConfirmDialog
+            {deleteDialogOpen && <ConfirmDialog
                 isOpen={deleteDialogOpen}
                 title="Delete conversation?"
                 message="This will permanently delete this conversation and all its messages. This action cannot be undone."
@@ -78,7 +78,7 @@ export default function ChatPage() {
                 variant="danger"
                 onConfirm={handleDeleteConfirm}
                 onCancel={handleDeleteCancel}
-            />
+            />}
             <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100">
                 <div className="container mx-auto px-4 py-8">
                     <header className="mb-8 text-center">

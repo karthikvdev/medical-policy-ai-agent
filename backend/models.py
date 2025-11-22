@@ -16,6 +16,7 @@ class Conversation(Base):
     insurer: Mapped[str] = mapped_column(String(255), nullable=False)
     plan: Mapped[str] = mapped_column(String(255), nullable=False)
     bill_text: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    policy_status: Mapped[str] = mapped_column(String(100), nullable=False, default="Initiated", server_default="Initiated")
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )

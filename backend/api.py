@@ -421,6 +421,7 @@ async def chat(
         history_dicts,
         policy,
         conversation.bill_text or "",
+        conversation.policy_status,
         req.user_input
     )
     
