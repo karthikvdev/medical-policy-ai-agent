@@ -95,12 +95,29 @@ export default function HomePage() {
                     const dataUrl = reader.result as string;
                     let ocrText = '';
 
-                    // Extract text from file
+                    // Extract text from file based on type
                     if (selectedFile.type === 'application/pdf') {
                         const raw = dataUrl.split(',')[1] || '';
                         const result = await apiService.extractTextFromPDF(raw);
                         ocrText = result.text || '';
+                    } else if (selectedFile.type === 'text/csv' || selectedFile.type === 'application/vnd.ms-excel') {
+                        // CSV file
+                        const raw = dataUrl.split(',')[1] || '';
+                        const result = await apiService.extractTextFromCSV(raw);
+                        // Convert CSV data to string format
+                        ocrText = typeof result.data === 'string' 
+                            ? result.data 
+                            : JSON.stringify(result.data, null, 2);
+                    } else if (
+                        selectedFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+                        selectedFile.type === 'application/msword'
+                    ) {
+                        // DOCX file
+                        const raw = dataUrl.split(',')[1] || '';
+                        const result = await apiService.extractTextFromDOCX(raw);
+                        ocrText = result.text || '';
                     } else {
+                        // Image file
                         const result = await apiService.extractTextFromImage(dataUrl);
                         ocrText = result.text || '';
                     }

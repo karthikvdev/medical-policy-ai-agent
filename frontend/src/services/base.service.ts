@@ -9,7 +9,7 @@ class ApiService {
   private baseUrl: string;
 
   constructor() {
-    this.baseUrl = import.meta.env.VITE_API_URL as string;
+    this.baseUrl = 'http://localhost:8080' as string;
   }
 
   /**
@@ -162,6 +162,52 @@ class ApiService {
       return await response.json();
     } catch (error) {
       console.error('Error in extractTextFromImage:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Extract text from CSV files
+   * @param csvBase64 - Base64 encoded CSV data
+   * @throws {Error} If the request fails
+   */
+  async extractTextFromCSV(csvBase64: string): Promise<{ data: any }> {
+    try {
+      const response = await fetch(`${this.baseUrl}/extract/csv`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ csv_base64: csvBase64 }),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Failed to process CSV: ${response.statusText}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error in extractTextFromCSV:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Extract text from DOCX files
+   * @param docxBase64 - Base64 encoded DOCX data
+   * @throws {Error} If the request fails
+   */
+  async extractTextFromDOCX(docxBase64: string): Promise<OCRResponse> {
+    try {
+      const response = await fetch(`${this.baseUrl}/extract/docx`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ docx_base64: docxBase64 }),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Failed to process DOCX: ${response.statusText}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error in extractTextFromDOCX:', error);
       throw error;
     }
   }

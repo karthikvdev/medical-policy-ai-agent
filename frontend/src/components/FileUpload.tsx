@@ -41,11 +41,20 @@ export default function FileUpload({
   };
 
   const handleFile = (file: File) => {
-    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
+    const allowedTypes = [
+      'application/pdf',
+      'image/jpeg',
+      'image/png',
+      'image/jpg',
+      'text/csv',
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/msword'
+    ];
     if (allowedTypes.includes(file.type)) {
       onFileSelect(file);
     } else {
-      alert('Please upload a PDF, JPEG, or PNG file');
+      alert('Please upload a PDF, Image (JPEG/PNG), CSV, or DOCX file');
     }
   };
 
@@ -78,12 +87,12 @@ export default function FileUpload({
             Drag and drop your file here, or click to browse
           </p>
           <p className="text-sm text-gray-500 mb-4">
-            Supported formats: PDF, JPEG, PNG
+            Supported formats: PDF, JPEG, PNG, CSV, DOCX
           </p>
           <label className="inline-block">
             <input
               type="file"
-              accept=".pdf,.jpeg,.jpg,.png"
+              accept=".pdf,.jpeg,.jpg,.png,.csv,.docx,.doc"
               onChange={handleFileInput}
               className="hidden"
             />
